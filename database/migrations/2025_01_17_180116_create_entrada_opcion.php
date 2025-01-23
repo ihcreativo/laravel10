@@ -11,9 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('entradas', function (Blueprint $table) {
+        Schema::create('entrada_opcion', function (Blueprint $table) {
             $table->id();
+            $table->string('opcion');
             $table->timestamps();
+            $table->unsignedBigInteger('id_user');
+            
+            $table->foreign("id_user")
+            ->references("id")
+            ->on("users")
+            ->onDelete("cascade");
         });
     }
 
@@ -22,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('entradas');
+        //
     }
 };

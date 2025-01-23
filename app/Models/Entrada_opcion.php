@@ -5,18 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Entrada extends Model
+class Entrada_opcion extends Model
 {
     use HasFactory;
-
+    protected $table = "entrada_opcion";
     protected $fillable = [
-        'entrada',
-        'detalle',
-        'id_user',
-        'id_opcion',
-        'id_caja',
-        'fecha',
-        'hora',
+        'id',
+        'opcion',
         'id_user'
     ];
 }

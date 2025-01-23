@@ -31,6 +31,7 @@ return new class extends Migration
             ->references("id")
             ->on("user_rol")
             ->onDelete("cascade");
+
         
         });
     }
