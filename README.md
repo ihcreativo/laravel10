@@ -1,3 +1,3 @@
 # soft
- Laravel 10 - Vue 2 - plantrilla cork implementada
+ Laravel 10 - Vue 2 - Plantilla cork implementada
 "# laravel10" 
