@@ -11,20 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('entrada', function (Blueprint $table) {
+        Schema::create('movimiento', function (Blueprint $table) {
             $table->id();
-            $table->integer('entrada');
+            $table->integer('movimiento');
             $table->string('detalle');
+            $table->enum('tipo',['in', 'out']);
             $table->unsignedBigInteger('id_user');
             $table->unsignedBigInteger('id_opcion');
             $table->unsignedBigInteger('id_caja');
-            $table->date('fecha');
-            $table->time('hora');
             $table->timestamps();
 
             $table->foreign("id_opcion")
             ->references("id")
-            ->on("entrada_opcion")
+            ->on("movimiento_opcion")
             ->onDelete("cascade");
 
             $table->foreign("id_caja")
@@ -44,6 +43,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('entradas');
+        Schema::dropIfExists('movimiento');
     }
 };

@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('entrada_opcion', function (Blueprint $table) {
+        Schema::create('movimiento_opcion', function (Blueprint $table) {
             $table->id();
             $table->string('opcion');
-            $table->timestamps();
+            $table->enum('tipo',['in', 'out']);
             $table->unsignedBigInteger('id_user');
+            $table->timestamps();
             
             $table->foreign("id_user")
             ->references("id")
@@ -29,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('movimiento_opcion');
     }
 };

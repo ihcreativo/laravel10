@@ -5,9 +5,9 @@
     @endsection
     @section('contenido') 
         <div class="container-fluid"> 
-            {{auth()->user()}}
-            <mainapp></mainapp>
-           {{-- <dashboard-inicio path_img="{{asset('/img/img/@')}}" path="{{route('login.index')}}"></dashboard-inicio> --}}
+            {{-- {{auth()->user()}} --}}
+            <dashboard path="{{route('login.index')}}"></dashboard>
+            {{-- <dashboard-inicio path_img="{{asset('/img/img/@')}}" path="{{route('login.index')}}"></dashboard-inicio> --}}
         </div>
     @endsection
 @endauth

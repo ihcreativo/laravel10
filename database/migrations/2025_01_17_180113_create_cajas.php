@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('cajas', function (Blueprint $table) {
             $table->id();
             $table->string('caja');
-            $table->timestamps();
             $table->unsignedBigInteger('id_user');
+            $table->timestamps();
                 
             $table->foreign("id_user")
             ->references("id")

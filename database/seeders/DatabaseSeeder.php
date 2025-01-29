@@ -16,7 +16,6 @@ class DatabaseSeeder extends Seeder
         $this->call(User_rolSeeder::class);
         $this->call(UserSeeder::class);
         $this->call(Cajas_Seeder::class);
-        $this->call(Entrada_opcion_Seeder::class);
-        $this->call(Salida_opcion_Seeder::class);
+        $this->call(MovimientoOpcionSeeder::class);
     }
 }

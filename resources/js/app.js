@@ -10,8 +10,16 @@ Alpine.start();
 
 import Vue from 'vue';
 window.Vue = Vue;
-import MainApp from './components/MainApp.vue';
-Vue.component('mainapp', MainApp);
+import dashboard from './components/dashboard-home.vue';
+import amchartbarra from './components/amcharts/bar.vue';
+import amchartlinea from './components/amcharts/line.vue';
+import amchartpie from './components/amcharts/pie.vue';
+
+Vue.component('dashboard', dashboard);
+Vue.component('amchart-barra', amchartbarra);
+Vue.component('amchart-linea', amchartlinea);
+Vue.component('amchart-torta',amchartpie);
+
 
 // window.Vue = require('vue').default;
 // window.Vue.prototype.$eventBus = new Vue();

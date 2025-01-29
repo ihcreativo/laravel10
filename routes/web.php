@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route; 
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\MovimientoController;
 
 Route::get('/404', [LoginController::class, 'denegado'])->middleware('auth')->name('denegado');
 Route::get('/', [LoginController::class, 'index'])->name('login.index');
@@ -23,6 +24,16 @@ Route::post('/users/edit/{id}',[UserController::class,'updateUser'])->middleware
 Route::post('/users/delete/{id}',[UserController::class,'destroy'])->middleware('auth')->name('usersDelete');
 Route::get('/changePassword', [UserController::class, 'showChangePasswordGet'])->middleware('auth')->name('changePasswordGet');
 Route::post('/changePassword',[UserController::class, 'changePasswordPost'])->middleware('auth')->name('changePasswordPost');
+
+// rutas vue
+Route::post('/cajas-vue', [MovimientoController::class, 'Cajas']);
+Route::post('/opcion-vue', [MovimientoController::class, 'MovimientoOpcion']);
+
+Route::post('/registrarMovimiento-vue', [MovimientoController::class, 'registrarMovimiento']);
+Route::post('/movimientos-vue', [MovimientoController::class, 'Movimientos']);
+Route::post('/saldo_cajas-vue', [MovimientoController::class, 'saldoCajas']);
+Route::post('/agregar_caja-vue', [MovimientoController::class, 'agregar_caja']);
+
 
 
 /*
