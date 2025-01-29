@@ -33,6 +33,10 @@ Route::post('/registrarMovimiento-vue', [MovimientoController::class, 'registrar
 Route::post('/movimientos-vue', [MovimientoController::class, 'Movimientos']);
 Route::post('/saldo_cajas-vue', [MovimientoController::class, 'saldoCajas']);
 Route::post('/agregar_caja-vue', [MovimientoController::class, 'agregar_caja']);
+Route::post('/eliminar_caja-vue', [MovimientoController::class, 'eliminar_caja']);
+Route::post('/agregar_opcion-vue', [MovimientoController::class, 'agregar_opcion']);
+Route::post('/eliminar_opcion-vue', [MovimientoController::class, 'eliminar_opcion']);
+
 
 
 

@@ -157,7 +157,7 @@
                                 </select>                       
                             </div>
                             <div class="col-12 pt-3">                      
-                                <label class="col-form-label col-sm-12 pt-0">GENERADOR DEL DINERO</label>
+                                <label class="col-form-label col-sm-12 pt-0">GENERADOR DEL DINERO <span @click="loadOpcion('in')">[Add]</span></label>
                                 <select class="form-control" v-model="id_opcion">
                                     <option disabled value="">Seleccionar</option>
                                     <option :value="opc.id" v-for="(opc , i) in opcionIN" :key="i">
@@ -194,7 +194,7 @@
                                 </select>                       
                             </div>
                             <div class="col-12 py-3">                      
-                                <label class="col-form-label col-sm-12 pt-0">GENERADOR DE LA SALIDA</label>
+                                <label class="col-form-label col-sm-12 pt-0">GENERADOR DE LA SALIDA <span @click="loadOpcion('out')">[Add]</span></label>
                                 <select class="form-control" v-model="id_opcion">
                                     <option disabled value="">Seleccionar</option>
                                     <option :value="opc.id" v-for="(opc , i) in opcionOUT" :key="i">
@@ -211,7 +211,7 @@
               
         </div>
        
-        <!-- modal-->
+        <!-- modal caja-->
         <div class="modal fade zoom-in-up" id="ModalCaja" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-xl" role="document">
                 <div class="modal-content fondo">
@@ -234,7 +234,11 @@
                                     <tr v-for="(cj ,c) in cajas" :key="c">
                                         <td>{{ c+1 }}</td>
                                         <td>{{ cj.caja }}</td>
-                                        <td></td>
+                                        <td>
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" @click="delete_caja(cj.caja,cj.id)">
+                                                <path d="M135.2 17.7L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-7.2-14.3C307.4 6.8 296.3 0 284.2 0L163.8 0c-12.1 0-23.2 6.8-28.6 17.7zM416 128L32 128 53.2 467c1.6 25.3 22.6 45 47.9 45l245.8 0c25.3 0 46.3-19.7 47.9-45L416 128z"/>
+                                            </svg>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -244,7 +248,57 @@
                 </div>
             </div>
         </div>
-        <!-- Fin modal -->
+        <!-- Fin modal caja -->
+         <!-- modal opcion-->
+        <div class="modal fade zoom-in-up" id="ModalOpcion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content fondo">
+                    <div class="modal-body">
+                        <form>
+                            <label for="form-control"> REGISTRAR OPCION DE INGRESO</label>
+                            <input type="text" class="form-control" v-model="OpcionNew">
+                            <div class="btn btn-primaryu" @click="agregar_opcion()">Add</div>
+                        </form>
+                        <div class="">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th v-if="opcionActive == 'in'">Opcion de Ingreso </th>
+                                        <th v-else>Opcion de Egreso </th>
+                                        <th>Opc</th>
+                                    </tr>
+                                </thead>
+                                <tbody v-if="opcionActive == 'in'">
+                                    <tr v-for="(opc , t) in opcionIN" :key="t">
+                                        <td>{{ t+1 }}</td>
+                                        <td>{{ opc.opcion }}</td>
+                                        <td>
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" @click="delete_opcion(opc.opcion,opc.id)">
+                                                <path d="M135.2 17.7L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-7.2-14.3C307.4 6.8 296.3 0 284.2 0L163.8 0c-12.1 0-23.2 6.8-28.6 17.7zM416 128L32 128 53.2 467c1.6 25.3 22.6 45 47.9 45l245.8 0c25.3 0 46.3-19.7 47.9-45L416 128z"/>
+                                            </svg>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tbody v-else>
+                                    <tr v-for="(opcc , tt) in opcionOUT" :key="tt">
+                                        <td>{{ tt+1 }}</td>
+                                        <td>{{ opcc.opcion }}</td>
+                                        <td>
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" @click="delete_opcion(opcc.opcion,opcc.id)">
+                                                <path d="M135.2 17.7L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-7.2-14.3C307.4 6.8 296.3 0 284.2 0L163.8 0c-12.1 0-23.2 6.8-28.6 17.7zM416 128L32 128 53.2 467c1.6 25.3 22.6 45 47.9 45l245.8 0c25.3 0 46.3-19.7 47.9-45L416 128z"/>
+                                            </svg>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- Fin modal opcion-->
     </div>
   
   
@@ -283,7 +337,9 @@
                 sumaIn:0,
                 sumaOut:0,
                 saldoCajas:[],
-                CajaNew:''
+                CajaNew:'',
+                OpcionNew:'',
+                opcionActive:''
             }
         },
         methods:{
@@ -299,42 +355,109 @@
             },
             agregar_caja: function(){
                 this.status = this.state.LOADING;
-                if(this.CajaNew != ''){
+                if(this.CajaNew.length > 3){
                     let fields =  new FormData();
                     fields.append('caja',this.CajaNew);
                     axios.post(this.path+'/agregar_caja-vue',fields).then(res => {
-                    if(res.data.state == 'ok'){ 
-                        console.log('registro exitoso');
-                        this.cargar_cajas();
-                    }   
-                    this.status = this.state.LOADED;          
+                        if(res.data.state == 'ok'){ 
+                            console.log('registro exitoso');
+                            this.CajaNew = '';
+                            this.cargar_cajas();
+                        }   
+                        this.status = this.state.LOADED;          
+                    }).catch(err => {
+                        console.log(err);
+                        this.status = this.state.FAILED;
+                    });
+                }else{
+                    alert('Debe digitar un nombre para la CAJA o BANCO')
+                    this.status = this.state.LOADED;  
+                }
+            },
+            delete_caja: function(cj, id){
+                if(confirm('Deseas eliminar la Opcion ('+cj+') ')){
+                    this.status = this.state.LOADING;
+                    let fields =  new FormData();
+                    fields.append('id',id);
+                    axios.post(this.path+'/eliminar_caja-vue',fields).then(res => {
+                        if(res.data.state == 'ok'){ 
+                            console.log('Eliminacion exitosa');
+                            this.cargar_cajas();
+                        }   
+                        this.status = this.state.LOADED;          
+                    }).catch(err => {
+                        console.log(err);
+                        this.status = this.state.FAILED;
+                    });
+                }
+            },
+            agregar_opcion: function(){
+                this.status = this.state.LOADING;
+                if(this.OpcionNew.length > 3){
+                    let fields =  new FormData();
+                    fields.append('opcion',this.OpcionNew);
+                    fields.append('tipo',this.opcionActive);
+                    //console.log(this.OpcionNew+' - '+tipo);
+                    axios.post(this.path+'/agregar_opcion-vue',fields).then(res => {
+                        if(res.data.state == 'ok'){ 
+                            console.log('registro exitoso');
+                            this.cargar_opcion();
+                            this.OpcionNew = '';
+                        }   
+                        this.status = this.state.LOADED;          
+                    }).catch(err => {
+                        console.log(err);
+                        this.status = this.state.FAILED;
+                    });
+                }else{
+                    alert('Debe digitar un nombre para la OPCION')
+                    this.status = this.state.LOADED;
+                }
+            },
+            delete_opcion: function(cj, id){
+                if(confirm('Deseas eliminar la Opcion ('+cj+') ')){
+                    this.status = this.state.LOADING;
+                    let fields =  new FormData();
+                    fields.append('id',id);
+                    axios.post(this.path+'/eliminar_opcion-vue',fields).then(res => {
+                        if(res.data.state == 'ok'){ 
+                            console.log('Eliminacion exitosa');
+                            this.cargar_opcion();
+                        }   
+                        this.status = this.state.LOADED;          
+                    }).catch(err => {
+                        console.log(err);
+                        this.status = this.state.FAILED;
+                    });
+                }
+            },
+            cargar_cajas: function(){
+                this.status = this.state.LOADING;
+                axios.post(this.path+'/cajas-vue').then(res => {
+                    this.cajas = res.data;
+                    this.status = this.state.LOADED;
+                    console.log(this.cajas);
                 }).catch(err => {
                     console.log(err);
                     this.status = this.state.FAILED;
                 });
-                }
-
-            },
-            cargar_cajas: function(){
-                axios.post(this.path+'/cajas-vue').then(res => {
-                    this.cajas = res.data;
-                    console.log(this.cajas);
-                }).catch(err => {
-                    console.log(err);
-                });
             },
 
-            cargar_opcionEntrada: function(){
+            cargar_opcion: function(){
+                this.status = this.state.LOADING;
                 axios.post(this.path+'/opcion-vue').then(res => {
                     this.opcionIN = res.data.filter(elm => elm.tipo === 'in');
                     this.opcionOUT = res.data.filter(elm => elm.tipo === 'out');
                     console.log(this.opcionIN);
+                    this.status = this.state.LOADED;
                 }).catch(err => {
                     console.log(err);
+                    this.status = this.state.FAILED;
                 });
             },
 
             cargar_movimientos:function(){
+                this.status = this.state.LOADING;
                 axios.post(this.path+'/movimientos-vue').then(res => {
                     this.movimientosAll = res.data;
                     this.movimientoMatrix = res.data;
@@ -361,7 +484,7 @@
                     });
                     this.$refs['caja'].setDatos(res.data.filter(elm => elm.tipo == 'in'));
                     this.$refs['movimientos'].setDatos(res.data);
-                    
+                    this.status = this.state.LOADED;
                     // console.log('datos-----ih');
                     // console.log(this.movimientosAll);
                     // console.log('fin');
@@ -371,7 +494,7 @@
                 }).catch(err => {
                    alert('isaias');
                     console.log(err);
-                    alert(err);
+                    this.status = this.state.FAILED;
                 });
             },
             registro_movimiento : function(){  
@@ -436,7 +559,8 @@
             loadCaja: function(){
                 $('#ModalCaja').modal('show');
             },
-            loadOpcion: function(){
+            loadOpcion: function(arg){
+                this.opcionActive = arg;
                 $('#ModalOpcion').modal('show');
             },
             getImg: function(arg){
@@ -446,7 +570,7 @@
         },
         mounted() {
             this.cargar_cajas();
-            this.cargar_opcionEntrada();
+            this.cargar_opcion();
             this.cargar_movimientos();
             this.saldo_cajas();
         }

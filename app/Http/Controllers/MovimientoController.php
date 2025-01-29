@@ -86,4 +86,31 @@ class MovimientoController extends Controller
         return response()->json(['name' => 'add', 'state' => 'ok']);
     }
 
+    public function eliminar_caja(Request $request){
+        $idU = auth()->user()->id;
+        $opc = Cajas::findOrFail($request->id);
+        $opc->delete();
+        return response()->json(['name' => 'add', 'state' => 'ok']);
+    }
+
+    public function agregar_opcion(Request $request){
+        $this->validate(request(),[
+            'opcion' => 'required',
+            'tipo' => 'required'
+        ]);
+        $opc =  new Movimiento_opcion();
+        $opc->opcion =  $request->opcion;
+        $opc->tipo =  $request->tipo;
+        $opc->id_user =  auth()->user()->id;
+        $opc->save();
+        return response()->json(['name' => 'add', 'state' => 'ok']);
+    }
+
+    public function eliminar_opcion(Request $request){
+        $idU = auth()->user()->id;
+        $opc = Movimiento_opcion::findOrFail($request->id);
+        $opc->delete();
+        return response()->json(['name' => 'add', 'state' => 'ok']);
+    }
+
 }
