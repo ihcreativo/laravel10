@@ -113,4 +113,11 @@ class MovimientoController extends Controller
         return response()->json(['name' => 'add', 'state' => 'ok']);
     }
 
+    public function eliminar_movimiento(Request $request){
+        $idU = auth()->user()->id;
+        $opc = Movimiento::findOrFail($request->id);
+        $opc->delete();
+        return response()->json(['name' => 'add', 'state' => 'ok']);
+    }
+
 }

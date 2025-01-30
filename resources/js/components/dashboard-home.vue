@@ -45,10 +45,10 @@
                         leyenda="top"
                         cursor
                         radio="70"
-                        altura="250" 
+                        altura="250"
                         ref="saldo_in"
                         campo_categoria="caja"
-                        campo_valor="movimiento"></amchart-torta>              
+                        campo_valor="movimiento"></amchart-torta>
                 </div>
                 <div class="card">
                     <div class="card-body text-center">
@@ -60,10 +60,10 @@
                         leyenda="top"
                         cursor
                         radio="70"
-                        altura="250" 
+                        altura="250"
                         ref="saldo_out"
                         campo_categoria="caja"
-                        campo_valor="movimiento"></amchart-torta>              
+                        campo_valor="movimiento"></amchart-torta>
                 </div>
                 <div class="card my-3 py-3">
                     <amchart-linea
@@ -76,7 +76,7 @@
                         puntos
                         tooltip
                         preloading
-                        altura="300" 
+                        altura="300"
                         ref="movimientos"
                         leyenda
                         campo_categoria="fecha"
@@ -87,7 +87,7 @@
                     etiquetas
                         multicolor
                         paleta="#1cdddc,#a5d8eb,#fa9f9e,#b4c1c7,#ffded9,#b0f0a4,#aef0ff,#ffa9de,#a1b4ff,#ffcf9e,#febdd1,#72cccc"
-                        altura="250" 
+                        altura="250"
                         redondeado
                         cursor
                         tooltip
@@ -96,22 +96,23 @@
                         campo_categoria="caja"
                         campo_valor="movimiento"></amchart-barra>
                 </div>
-                
+
             </div>
             <div :class="showMenu == '2'? 'px-0 py-0':'d-none' ">
-                MOVIMIENTOS
+               <h4>
+                   MOVIMIENTOS
+               </h4>
                 <div class="table-responsive">
                     <table class="table">
-                       
                         <tbody>
-                            <tr v-for="(dt, dto) in movimientosAll" :key="dto">
-                                <td class="">
+                            <tr v-for="(dt, dto) in movimientosAll" :key="dto" @click="view_movimiento(dt)">
+                                <td class="fs-6">
                                     <!-- <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> -->
-                                    {{dt.fecha}} 
+                                    {{dt.fecha}}
                                     <br>{{ dt.detalle }}
                                 </td>
-                                <td class="text-center">{{ dt.hora }}</td>
-                                <td class="text-center fs-6">
+                                <td class="text-center"></td>
+                                <td class="text-center fs-5">
                                     <span :class="dt.tipo == 'in'? 'text-success':'text-danger'">$ {{ parseFloat(dt.movimiento).toLocaleString('es')}}</span>
                                 </td>
                             </tr>
@@ -127,9 +128,9 @@
                         <div class="btn-group w-100" role="group" aria-label="Basic radio toggle button group">
                             <input type="radio" class="btn-check" @click="movimientoOpcion='in'" name="btnradio" id="btnradio1" autocomplete="off" checked>
                             <label class="btn btn-outline-primary" for="btnradio1">INGRESO</label>
-                            
+
                             <input type="radio" class="btn-check" @click="movimientoOpcion='out'" name="btnradio" id="btnradio2" autocomplete="off">
-                            <label class="btn btn-outline-danger" for="btnradio2">SALIDA</label> 
+                            <label class="btn btn-outline-danger" for="btnradio2">SALIDA</label>
                         </div>
                     </div>
                 </div>
@@ -148,22 +149,22 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-12">                      
+                            <div class="col-12">
                                 <label class="col-form-label col-sm-12 pt-0">DONDE INGRESA EL DINERO <span @click="loadCaja()">[Add]</span></label>
                                 <select class="form-control" v-model="id_caja">
                                     <option v-for="(cl , i) in cajas" :key="i" :value="cl.id">
                                         {{ cl.caja }}
                                     </option>
-                                </select>                       
+                                </select>
                             </div>
-                            <div class="col-12 pt-3">                      
+                            <div class="col-12 pt-3">
                                 <label class="col-form-label col-sm-12 pt-0">GENERADOR DEL DINERO <span @click="loadOpcion('in')">[Add]</span></label>
                                 <select class="form-control" v-model="id_opcion">
                                     <option disabled value="">Seleccionar</option>
                                     <option :value="opc.id" v-for="(opc , i) in opcionIN" :key="i">
                                         {{ opc.opcion }}
                                     </option>
-                                </select>                       
+                                </select>
                             </div>
                         </div>
                         <div @click="registro_movimiento" class="btn btn-primary w-100 py-3 mt-3" >REGISTRAR INGRESO</div>
@@ -185,22 +186,22 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-12">                      
+                            <div class="col-12">
                                 <label class="col-form-label col-sm-12 pt-0">DONDE SALE EL DINERO <span @click="loadCaja()">[Add]</span></label>
                                 <select class="form-control" v-model="id_caja">
                                     <option v-for="(cl , i) in cajas" :key="i" :value="cl.id">
                                         {{ cl.caja }}
                                     </option>
-                                </select>                       
+                                </select>
                             </div>
-                            <div class="col-12 py-3">                      
+                            <div class="col-12 py-3">
                                 <label class="col-form-label col-sm-12 pt-0">GENERADOR DE LA SALIDA <span @click="loadOpcion('out')">[Add]</span></label>
                                 <select class="form-control" v-model="id_opcion">
                                     <option disabled value="">Seleccionar</option>
                                     <option :value="opc.id" v-for="(opc , i) in opcionOUT" :key="i">
                                         {{ opc.opcion }}
                                     </option>
-                                </select>                       
+                                </select>
                             </div>
                         </div>
                         <div @click="registro_movimiento" class="btn btn-danger py-3 w-100" >REGISTRAR SALIDA </div>
@@ -208,9 +209,59 @@
                 </div>
                 <!-- fin -->
             </div>
-              
         </div>
-       
+         <!-- modal movimiento-->
+          
+         <div class="modal dialog-centered" id="ModalMovimiento" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content fondo">
+                    <div class="modal-body">
+                        <div class="card style-5  mb-md-0 mb-4">
+                            <div class="card-content">
+                                <div class="card-body">
+                                    <h5 class="card-title mb-2">Movimiento</h5>
+                                    <p class="card-text fs-5">
+                                        Tipo : {{ this.change_tipo_movimiento(this.movimientoX.tipo)}}
+                                    </p>
+                                    <p class="card-text fs-5">
+                                        Valor:
+                                        {{ this.movimientoX.movimiento }}
+                                    </p>
+                                    <p class="card-text fs-5">
+                                        Detalle : <br>
+                                        {{ this.movimientoX.detalle }}
+                                    </p>
+                                    <p class="card-text fs-5">
+                                        Caja: 
+                                        {{ this.movimientoX.caja }}
+                                    </p>
+                                    <p class="card-text fs-5">
+                                        Opcion: 
+                                        {{ this.movimientoX.opcion }}
+                                    </p>
+                                    <p class="card-text fs-5">
+                                        Fecha:
+                                        {{ this.movimientoX.fecha }}
+                                    </p>
+                                    <p class="card-text fs-5">
+                                        Hora: 
+                                        {{ this.movimientoX.hora }}
+                                    </p>                       
+                                </div>
+                                <div class="card-body">
+                                    <div class="btn btn-danger" @click="eliminar_movimiento()">
+                                        Eliminar este Movimento
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- Fin modal Movimiento -->
+
         <!-- modal caja-->
         <div class="modal fade zoom-in-up" id="ModalCaja" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-xl" role="document">
@@ -300,10 +351,10 @@
         </div>
         <!-- Fin modal opcion-->
     </div>
-  
-  
+
+
   </template>
-  
+
   <script>
     import axios from 'axios';
     //import PieChart from './../amcharts/pie.vue';
@@ -312,14 +363,14 @@
             path:{type:String, default:''},
             id : {type:String, default:'0'}
         },
-  
+
         data() {
             return {
                 status: 'ini',
                 state: {'INI': 'ini', 'LOADING': 'loading', 'LOADED': 'loaded', 'FAILED': 'failed'},
                 cajas:[],
-                opcionIN:[], 
-                opcionOUT:[], 
+                opcionIN:[],
+                opcionOUT:[],
                 movimiento:0,
                 detalle: '',
                 id_caja: 0,
@@ -328,8 +379,8 @@
                 movimientoOpcion: 'in',
                 menu : [
                     {'id':'1','opcion':'BALANCE','show':true},
-                    {'id':'2','opcion':'MOVIMIENTOS','show':false}, 
-                    {'id':'3','opcion':'REGISTRAR','show':false},  
+                    {'id':'2','opcion':'MOVIMIENTOS','show':false},
+                    {'id':'3','opcion':'REGISTRAR','show':false},
                 ],
                 showMenu: 1,
                 movimientosAll:[],
@@ -339,10 +390,19 @@
                 saldoCajas:[],
                 CajaNew:'',
                 OpcionNew:'',
-                opcionActive:''
+                opcionActive:'',
+                movimientoX:[],
             }
         },
         methods:{
+            change_tipo_movimiento: function(arg){
+                let x = arg;
+                switch(arg){
+                    case 'in': x = 'INGRESO'; break;
+                    case 'out': x = 'EGRESO'; break;
+                }
+                return x;
+            },
             selectOpcion: function(arg){
                 this.showMenu = arg.id;
             },
@@ -359,37 +419,55 @@
                     let fields =  new FormData();
                     fields.append('caja',this.CajaNew);
                     axios.post(this.path+'/agregar_caja-vue',fields).then(res => {
-                        if(res.data.state == 'ok'){ 
+                        if(res.data.state == 'ok'){
                             console.log('registro exitoso');
                             this.CajaNew = '';
                             this.cargar_cajas();
-                        }   
-                        this.status = this.state.LOADED;          
+                        }
+                        this.status = this.state.LOADED;
                     }).catch(err => {
                         console.log(err);
                         this.status = this.state.FAILED;
                     });
                 }else{
                     alert('Debe digitar un nombre para la CAJA o BANCO')
-                    this.status = this.state.LOADED;  
+                    this.status = this.state.LOADED;
                 }
             },
             delete_caja: function(cj, id){
-                if(confirm('Deseas eliminar la Opcion ('+cj+') ')){
-                    this.status = this.state.LOADING;
-                    let fields =  new FormData();
-                    fields.append('id',id);
-                    axios.post(this.path+'/eliminar_caja-vue',fields).then(res => {
-                        if(res.data.state == 'ok'){ 
-                            console.log('Eliminacion exitosa');
-                            this.cargar_cajas();
-                        }   
-                        this.status = this.state.LOADED;          
-                    }).catch(err => {
-                        console.log(err);
-                        this.status = this.state.FAILED;
-                    });
-                }
+                Swal.fire({
+                    title: "Desea eliminar el BANCO o CAJA "+cj+"?",
+                    text: "Una vez eliminado, NO hay vuelta atras.!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Si, deseo eliminar!"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        this.status = this.state.LOADING;
+                        let fields =  new FormData();
+                        fields.append('id',id);
+                        axios.post(this.path+'/eliminar_caja-vue',fields).then(res => {
+                            if(res.data.state == 'ok'){
+                                console.log('Eliminacion exitosa');
+                                this.cargar_cajas();
+                            }
+                            this.status = this.state.LOADED;
+                        }).catch(err => {
+                            console.log(err);
+                            this.status = this.state.FAILED;
+                        });
+
+
+                        Swal.fire({
+                            title: "Eliminado!",
+                            text: "Tu opción "+cj+" ha sido eliminada.",
+                            icon: "success"
+                        });
+                    }
+                })
+
             },
             agregar_opcion: function(){
                 this.status = this.state.LOADING;
@@ -399,12 +477,12 @@
                     fields.append('tipo',this.opcionActive);
                     //console.log(this.OpcionNew+' - '+tipo);
                     axios.post(this.path+'/agregar_opcion-vue',fields).then(res => {
-                        if(res.data.state == 'ok'){ 
+                        if(res.data.state == 'ok'){
                             console.log('registro exitoso');
                             this.cargar_opcion();
                             this.OpcionNew = '';
-                        }   
-                        this.status = this.state.LOADED;          
+                        }
+                        this.status = this.state.LOADED;
                     }).catch(err => {
                         console.log(err);
                         this.status = this.state.FAILED;
@@ -415,21 +493,94 @@
                 }
             },
             delete_opcion: function(cj, id){
-                if(confirm('Deseas eliminar la Opcion ('+cj+') ')){
-                    this.status = this.state.LOADING;
-                    let fields =  new FormData();
-                    fields.append('id',id);
-                    axios.post(this.path+'/eliminar_opcion-vue',fields).then(res => {
-                        if(res.data.state == 'ok'){ 
-                            console.log('Eliminacion exitosa');
-                            this.cargar_opcion();
-                        }   
-                        this.status = this.state.LOADED;          
-                    }).catch(err => {
-                        console.log(err);
-                        this.status = this.state.FAILED;
-                    });
-                }
+                Swal.fire({
+                    title: "Desea eliminar la opcion "+cj+"?",
+                    text: "Una vez eliminada la OPCION, NO hay vuelta atras.!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Si, deseo eliminar!"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        this.status = this.state.LOADING;
+                        let fields =  new FormData();
+                        fields.append('id',id);
+                        axios.post(this.path+'/eliminar_opcion-vue',fields).then(res => {
+                            if(res.data.state == 'ok'){
+                                console.log('Eliminacion exitosa');
+                                this.cargar_opcion();
+                            }
+                            this.status = this.state.LOADED;
+                        }).catch(err => {
+                            console.log(err);
+                            this.status = this.state.FAILED;
+                        });
+
+
+                        Swal.fire({
+                            title: "Eliminado!",
+                            text: "Tu opción "+cj+" ha sido eliminada.",
+                            icon: "success"
+                        });
+                    }
+                });
+
+
+
+
+
+
+                // if(confirm('Deseas eliminar la Opcion ('+cj+') ')){
+                //     this.status = this.state.LOADING;
+                //     let fields =  new FormData();
+                //     fields.append('id',id);
+                //     axios.post(this.path+'/eliminar_opcion-vue',fields).then(res => {
+                //         if(res.data.state == 'ok'){
+                //             console.log('Eliminacion exitosa');
+                //             this.cargar_opcion();
+                //         }
+                //         this.status = this.state.LOADED;
+                //     }).catch(err => {
+                //         console.log(err);
+                //         this.status = this.state.FAILED;
+                //     });
+                // }
+            },
+            eliminar_movimiento: function(){
+                Swal.fire({
+                    title: "Desea eliminar el movimiento "+this.movimientoX.detalle+" por valor de "+this.movimientoX.movimiento+"?",
+                    text: "Una vez eliminado, NO hay vuelta atras.!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Si, deseo eliminar!"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        this.status = this.state.LOADING;
+                        let fields =  new FormData();
+                        fields.append('id',this.movimientoX.id);
+                        axios.post(this.path+'/eliminar_movimiento-vue',fields).then(res => {
+                            if(res.data.state == 'ok'){
+                                console.log('Eliminacion exitosa');
+                                this.cargar_movimientos();
+                                this.movimientoX = [];
+                            }
+                            this.status = this.state.LOADED;
+                        }).catch(err => {
+                            console.log(err);
+                            this.status = this.state.FAILED;
+                        });
+
+
+                        Swal.fire({
+                            title: "Eliminado!",
+                            text: "Tu opción "+cj+" ha sido eliminada.",
+                            icon: "success"
+                        });
+                    }
+                })
             },
             cargar_cajas: function(){
                 this.status = this.state.LOADING;
@@ -442,7 +593,6 @@
                     this.status = this.state.FAILED;
                 });
             },
-
             cargar_opcion: function(){
                 this.status = this.state.LOADING;
                 axios.post(this.path+'/opcion-vue').then(res => {
@@ -455,7 +605,6 @@
                     this.status = this.state.FAILED;
                 });
             },
-
             cargar_movimientos:function(){
                 this.status = this.state.LOADING;
                 axios.post(this.path+'/movimientos-vue').then(res => {
@@ -476,9 +625,9 @@
                             case '09': tmp = 'Sep'; break;
                             case '10': tmp = 'Oct'; break;
                             case '11': tmp = 'Nov'; break;
-                            case '12': tmp = 'Dic'; break;    
+                            case '12': tmp = 'Dic'; break;
                         }
-                        elm.fecha = elm.fecha.substr(8,2)+' '+tmp+' '+elm.fecha.substr(0,4); 
+                        elm.fecha = elm.fecha.substr(8,2)+' '+tmp+' '+elm.fecha.substr(0,4);
                         (elm.tipo == 'in')?this.sumaIn = this.sumaIn + elm.movimiento:this.sumaOut = this.sumaOut + elm.movimiento
                         return elm;
                     });
@@ -497,7 +646,7 @@
                     this.status = this.state.FAILED;
                 });
             },
-            registro_movimiento : function(){  
+            registro_movimiento : function(){
                 if(this.status != this.state.LOADING){
                     this.status = this.state.LOADING;
                     let x = {
@@ -505,7 +654,7 @@
                         'detalle':this.detalle,
                         'tipo': this.movimientoOpcion,
                         'id_caja':this.id_caja,
-                        'id_opcion': this.id_opcion 
+                        'id_opcion': this.id_opcion
                     }
                     if((this.movimiento > 0)&&(this.detalle.length > 2)&&(this.id_caja != 0)&&(this.id_opcion != 0)){
                         let fields =  new FormData();
@@ -513,15 +662,15 @@
                         fields.append('detalle',this.detalle);
                         fields.append('tipo',this.movimientoOpcion);
                         fields.append('id_caja',this.id_caja);
-                        fields.append('id_opcion',this.id_opcion); 
-                        // console.log(this.movimiento + ' '+this.detalle+ ' '+this.tipo+' '+this.id_caja+' '+this.id_opcion) 
+                        fields.append('id_opcion',this.id_opcion);
+                        // console.log(this.movimiento + ' '+this.detalle+ ' '+this.tipo+' '+this.id_caja+' '+this.id_opcion)
                         axios.post(this.path+'/registrarMovimiento-vue',fields).then(res => {
                             this.response = res.data;
                             this.status = this.state.LOADED;
                             if(this.response.state == 'ok'){
                                 this.limpiar();
                                 this.showMenu = 2;
-                                this.cargar_movimientos();     
+                                this.cargar_movimientos();
                             }
                         }).catch(err => {
                             this.status = this.state.FAILED;
@@ -529,11 +678,15 @@
                         })
                     }else{
                         alert('Los campos (son obligatorios)')
-                    }       
+                    }
                 }
 
             },
-
+            view_movimiento: function(arg){
+                this.movimientoX = arg;
+                console.log(this.movimientoX);
+                $('#ModalMovimiento').modal('show');
+            },
             saldo_cajas: function(){
                 if(this.status != this.state.LOADING){
                     this.status = this.state.LOADING;
@@ -549,7 +702,6 @@
                     })
                 }
             },
-
             limpiar: function(){
                 this.id_caja = 0;
                 this.id_opcion = 0;
@@ -566,7 +718,8 @@
             getImg: function(arg){
                 return this.path_img.replace('@',arg);
             },
-  
+
+
         },
         mounted() {
             this.cargar_cajas();
@@ -580,4 +733,3 @@
     .colmin {width: 1%; white-space: nowrap; text-align: center}
     .loading {opacity: .45; pointer-events: none; user-select: none}
   </style>
-  

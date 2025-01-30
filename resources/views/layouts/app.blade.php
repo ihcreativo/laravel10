@@ -13,6 +13,7 @@
     <link href="{{ asset('assets-cork/layouts/modern-light-menu/css/dark/loader.css') }} " rel="stylesheet" type="text/css" />
     <script src="{{ asset('assets-cork/layouts/modern-light-menu/loader.js') }} "></script>
     <script src="https://kit.fontawesome.com/58a25a80e0.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
     <link href="{{ asset('assets-cork/src/bootstrap/css/bootstrap.min.css') }} " rel="stylesheet" type="text/css" />
@@ -88,9 +89,13 @@
     <script src="{{ asset('/js/jquery.min.js')}}"></script>
     <script src="{{ asset('/js/bootstrap.min.js')}}"></script>
     <script src="{{ asset('/plugins/src/perfect-scrollbar/perfect-scrollbar.min.js')}}"></script> 
-    {{-- produccion --}}
-    {{-- <script src="{{ asset('/js/app.js') }}"></script> --}}
+    {{-- dev --}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+   
+    {{-- fin dev --}}
+    {{-- produccion --}}
+    {{-- <script src="/build/assets/app.js"></script> --}}
+    {{-- fin proction --}}
     <script src="{{ asset('/assets-cork/layouts/modern-light-menu/app.js')}}"></script>
     {{-- <script src="{{asset('/assets-cork/src/bootstrap/js/bootstrap.bundle.min.js')}}"></script> --}}
     
