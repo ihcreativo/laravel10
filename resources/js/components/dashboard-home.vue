@@ -450,7 +450,6 @@
             },
             setCaja: function(arg){
                 this.id_caja = arg;
-                alert(arg)
             },
             agregar_caja: function(){
                 this.status = this.state.LOADING;
@@ -680,7 +679,6 @@
                     // this.opcionOUT = res.data.filter(elm => elm.tipo === 'out');
                     // console.log(this.opcionIN);
                 }).catch(err => {
-                   alert('isaias');
                     console.log(err);
                     this.status = this.state.FAILED;
                 });
@@ -738,7 +736,6 @@
                         this.$refs['saldo_caja'].setDatos(Object.values(saldear));
                         
                         this.status = this.state.LOADED;
-                        alert('carga')
                     }).catch(err => {
                         this.status = this.state.FAILED;
                         console.log(err)
