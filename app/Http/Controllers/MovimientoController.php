@@ -36,7 +36,7 @@ class MovimientoController extends Controller
         return $datos;
     }
     public function saldoCajas(){
-        $datos = Movimiento::select('movimiento.tipo','movimiento.id_caja','cajas.caja','movimiento.movimiento')
+        $datos = Movimiento::select('movimiento.tipo','movimiento.id_caja','cajas.caja',DB::raw("sum(`movimiento`.`movimiento`) as movimiento"))
                 ->join('cajas', 'movimiento.id_caja', '=', 'cajas.id')
                 ->where("movimiento.id_user", "=", auth()->user()->id)
                 ->groupBy("movimiento.id_caja", "movimiento.tipo")

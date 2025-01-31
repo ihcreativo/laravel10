@@ -10,13 +10,14 @@
     
     <link rel="icon" type="image/x-icon" href="{{ asset( 'assets-cork/src/assets/img/favicon.ico') }} "/>
     <link href="{{ asset('assets-cork/layouts/modern-light-menu/css/light/loader.css') }} " rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets-cork/layouts/modern-light-menu/css/dark/loader.css') }} " rel="stylesheet" type="text/css" />
     <script src="{{ asset('assets-cork/layouts/modern-light-menu/loader.js') }} "></script>
     <script src="https://kit.fontawesome.com/58a25a80e0.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
-    <link href="{{ asset('assets-cork/src/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('assets-cork/layouts/modern-light-menu/css/light/plugins.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets-cork/src/bootstrap/css/bootstrap.min.css') }} " rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets-cork/layouts/modern-light-menu/css/light/plugins.css') }} " rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets-cork/layouts/modern-light-menu/css/dark/plugins.css') }} " rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets-cork/src/assets/css/light/components/modal.css') }} " rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets-cork/src/assets/css/dark/components/modal.css') }} " rel="stylesheet" type="text/css" />
@@ -35,9 +36,9 @@
      @yield('style')
 </head>
 
-<body class="p-0 m-0">
-     <!-- BEGIN LOADER -->
-     <div id="load_screen"> 
+<body class="{{Route::is('result_query','periodo','empresarial','impacto','dashboard','aunsenteX','importar','ubicacion') ? 'alt-menu layout-boxed':'layout-boxed'}}">
+    <!-- BEGIN LOADER -->
+    <div id="load_screen"> 
         <div class="loader"> 
             <div class="loader-content">
                 <div class="spinner-grow align-self-center"></div>
@@ -45,23 +46,61 @@
         </div>
     </div>
     <!--  END LOADER -->
-    <div class="m-0 p-0">
-        <div class="m-0 pt-0" id="app">
-            @yield('contenido')
+     <!--  BEGIN NAVBAR  -->
+     @include("layouts/header") 
+    <!--  END NAVBAR  -->
+    <div class="main-container" id="container">
+        <div class="overlay"></div>
+        <div class="cs-overlay"></div>
+        <div class="search-overlay"></div>
+        <!--  BEGIN SIDEBAR  -->
+        @include("layouts/sidebar") 
+        <!--  END SIDEBAR  -->
+        <!--  BEGIN CONTENT AREA  -->
+        <div id="content" class="main-content">
+            <div class="layout-px-spacing">
+                <div class="middle-content container-xxl p-0">
+                    <div class="row layout-top-spacing" id="app">
+                        @yield('contenido')
+                    </div>
+                </div>
+            </div>
+            <!--  BEGIN FOOTER -->
+            @include('layouts/footer')
+            <!--  END FOOTER  -->
         </div>
+        <!--  END CONTENT AREA  -->
     </div>
-
     <!-- END MAIN CONTAINER -->
     @yield('outcontent')  
+    <!-- BEGIN GLOBAL MANDATORY SCRIPTS -->
+    <!-- END GLOBAL MANDATORY SCRIPTS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    {{-- <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS --> --}}
+
+    {{-- 
+    <script src="{{ asset('/plugins/src/highlight/highlight.pack.js')}}"></script>
+    <script src="{{ asset('/plugins/js/bootstrap.bundle.min.js')}}"></script>
+    --}}
+    {{-- <script src="{{ asset('/plugins/src/global/vendors.min.js')}}"></script> --}}
+    <script src="{{ asset('/plugins/src/waves/waves.min.js')}}"></script>
+    <script src="{{ asset('/plugins/src/mousetrap/mousetrap.min.js')}}"></script>
+    
     <script src="{{ asset('/js/jquery.min.js')}}"></script>
     <script src="{{ asset('/js/bootstrap.min.js')}}"></script>
+    <script src="{{ asset('/plugins/src/perfect-scrollbar/perfect-scrollbar.min.js')}}"></script> 
+    {{-- dev --}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
    
     {{-- fin dev --}}
     {{-- produccion --}}
     {{-- <script src="/build/assets/app.js"></script> --}}
     {{-- fin proction --}}
+    <script src="{{ asset('/assets-cork/layouts/modern-light-menu/app.js')}}"></script>
+    {{-- <script src="{{asset('/assets-cork/src/bootstrap/js/bootstrap.bundle.min.js')}}"></script> --}}
     
+    {{-- <script src="../layouts/modern-light-menu/app.js"></script> --}}
+    {{-- <script src="{{ asset('/js/bootstrap.bundle.min.js')}}"></script> --}}
 </body>
 </html>
 

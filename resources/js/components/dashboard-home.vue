@@ -1,16 +1,68 @@
 <template>
 
     <div :class="status">
-        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
-            <div class="input-group border-0 mb-4" style="cursor: pointer;">
-                <div :class="showMenu == gr.id? 'form-control text-center btn btn-dark':'form-control text-center btn btn-gray'" @click="selectOpcion(gr)" v-for="(gr,i) in menu" :key="i">
-                    <button  class="btn bg-white btn-icon mb-0  btn-rounded">
-                        <i v-if="showMenu == gr.id" class="fa-regular fa-folder-open h5 py-0 px-0 mx-0 my-0"></i>
-                        <i v-else class="fa-solid fa-folder h5 py-0 px-0 mx-0 my-0"></i>
-                    </button>
-                    {{ gr.opcion }}
+        <div class="fixed-bottom text-dark w-100">
+            <div class="d-flex justify-content-between align-items-center">
+                <div :class="showMenu == 1? 'form-control rounded-0 text-center text-dark bg-dark text-white m-0 p-0 pt-2':'form-control rounded-0 text-center text-dark bg-light-dark m-0 p-0 pt-2'" @click="selectOpcion('1')">
+                    <!-- <img src="img/ico/home.png" width="40"> -->
+                    <i class="fa-solid fa-house fs-5"></i>
+                    <fieldset>Inicio</fieldset>
+                </div>
+                <div :class="showMenu == 2? 'form-control rounded-0 text-center text-dark bg-dark text-white m-0 p-0 pt-2':'form-control rounded-0 text-center text-dark bg-light-dark m-0 p-0 pt-2'" @click="selectOpcion(2)">
+                    <!-- <img src="img/ico/reservas1.png" width="40"> -->
+                    <i class="fa-solid fa-sack-dollar fs-5"></i>
+                    <fieldset>Movimientos</fieldset>
+                </div>
+                <div :class="showMenu == 3? 'form-control rounded-0 text-center text-dark bg-dark text-white m-0 p-0 pt-2':'form-control rounded-0 text-center text-dark bg-light-dark m-0 p-0 pt-2'" @click="selectOpcion(3)">
+                    <div class="">
+                        <i class="fa-solid fa-gear fs-5"></i>
+                        <fieldset>Mi cuenta</fieldset>
+                    
+                    </div>
+                   
                 </div>
             </div>
+        </div>
+        <!-- fin de menu fixed-bottom -->
+        <!--header -->
+        <div class="row my-3">
+            <div class="col-4">
+                <img class="w-100" :src="path+'/img/logo_mini.png'">
+            </div>
+            <div class="col-8 dropdown">
+                <div class="float-end" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img class="" :src="path+'/img/iuser.png'" width="40">
+                </div>
+                <ul class="dropdown-menu media-body px-2">
+                    <li class="py-1">
+                        <a class="dropdown-item" href="#">Mi Cuenta</a>
+                    </li>
+                    <li class="py-1">
+                        <a class="dropdown-item" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-lock-fill" viewBox="0 0 16 16">
+                                <path d="M7 6a1 1 0 0 1 2 0v1H7V6zM6 8.3c0-.042.02-.107.105-.175A.637.637 0 0 1 6.5 8h3a.64.64 0 0 1 .395.125c.085.068.105.133.105.175v2.4c0 .042-.02.107-.105.175A.637.637 0 0 1 9.5 11h-3a.637.637 0 0 1-.395-.125C6.02 10.807 6 10.742 6 10.7V8.3z"/>
+                                <path d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm-2 6v1.076c.54.166 1 .597 1 1.224v2.4c0 .816-.781 1.3-1.5 1.3h-3c-.719 0-1.5-.484-1.5-1.3V8.3c0-.627.46-1.058 1-1.224V6a2 2 0 1 1 4 0z"/>
+                              </svg>
+                            
+                            Modificar contraseña
+                        </a>
+                    </li>
+                    <li class="py-1">
+                        <a class="dropdown-item" :href="path+'/salir'">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-power" viewBox="0 0 16 16">
+                                <path d="M7.5 1v7h1V1h-1z"/>
+                                <path d="M3 8.812a4.999 4.999 0 0 1 2.578-4.375l-.485-.874A6 6 0 1 0 11 3.616l-.501.865A5 5 0 1 1 3 8.812z"/>
+                              </svg>
+                            <span>Cerrar sesion</span>
+                        </a>
+                    </li>
+                    
+                     
+                </ul>
+            </div>
+        </div>
+        <!-- fin header -->
+
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
             <div :class="showMenu == '1'? 'px-0 py-0':'d-none' ">
                 <div class="widget widget-card-five">
                     <div class="widget-content">
@@ -29,41 +81,36 @@
                             </div>
 
                             <div class="card-bottom-section">
-                                <div><span class="badge badge-light-success">+ 13.6% <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trending-up"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg></span></div>
-                                <a href="javascript:void(0);" class="">View Report</a>
+                                <div>
+                                    <span class="badge badge-light-success px-3" @click="activar_movimiento(3,'in')">
+                                        <img  class="pb-2" :src="path+'/img/plus.png'" ><br>REGISTRAR INGRESO
+                                    </span>
+                                </div>
+                                <div>
+                                    <span class="badge badge-light-success px-3" @click="activar_movimiento(3,'out')">        
+                                        <img  class="pb-2" :src="path+'/img/minus.png'"><br> REGISTRA SALIDA
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="card px-3 my-3">
+                <div class="card my-3 py-3">
                     <div class="card-body text-center">
-                        <h6 class="mb-0 ih-title">INGRESO POR CAJAS</h6>
+                        <h6 class="mb-0 ih-title">SALDO ACTUAL POR CAJAS</h6>
                     </div>
-                    <amchart-torta
+                    <amchart-barra
                         etiquetas
-                        paleta="#1cdddc,#a5d8eb,#fa9f9e,#b4c1c7,#ffded9,#b0f0a4,#aef0ff,#ffa9de,#a1b4ff,#ffcf9e,#febdd1,#72cccc"
-                        leyenda="top"
-                        cursor
-                        radio="70"
+                        multicolor
+                        paleta="#fa9f9e,#b4c1c7,#ffded9,#b0f0a4,#aef0ff,#ffa9de,#a1b4ff,#ffcf9e,#febdd1,#72cccc"
                         altura="250"
-                        ref="saldo_in"
-                        campo_categoria="caja"
-                        campo_valor="movimiento"></amchart-torta>
-                </div>
-                <div class="card">
-                    <div class="card-body text-center">
-                        <h6 class="mb-0 ih-title">SALIDAS POR CAJAS</h6>
-                    </div>
-                    <amchart-torta
-                        etiquetas
-                        paleta="#1cdddc,#a5d8eb,#fa9f9e,#b4c1c7,#ffded9,#b0f0a4,#aef0ff,#ffa9de,#a1b4ff,#ffcf9e,#febdd1,#72cccc"
-                        leyenda="top"
+                        redondeado
                         cursor
-                        radio="70"
-                        altura="250"
-                        ref="saldo_out"
-                        campo_categoria="caja"
-                        campo_valor="movimiento"></amchart-torta>
+                        tooltip
+                        sin_valores
+                        ref="saldo_caja"
+                        campo_categoria="Caja"
+                        campo_valor="Saldo"></amchart-barra>
                 </div>
                 <div class="card my-3 py-3">
                     <amchart-linea
@@ -82,59 +129,46 @@
                         campo_categoria="fecha"
                         campo_valor="movimiento"></amchart-linea>
                 </div>
-                <div class="card my-3 py-3">
-                    <amchart-barra
-                    etiquetas
-                        multicolor
-                        paleta="#1cdddc,#a5d8eb,#fa9f9e,#b4c1c7,#ffded9,#b0f0a4,#aef0ff,#ffa9de,#a1b4ff,#ffcf9e,#febdd1,#72cccc"
-                        altura="250"
-                        redondeado
-                        cursor
-                        tooltip
-                        sin_valores
-                        ref="caja"
-                        campo_categoria="caja"
-                        campo_valor="movimiento"></amchart-barra>
-                </div>
+                
 
             </div>
             <div :class="showMenu == '2'? 'px-0 py-0':'d-none' ">
-               <h4>
-                   MOVIMIENTOS
-               </h4>
-                <div class="table-responsive">
-                    <table class="table">
-                        <tbody>
-                            <tr v-for="(dt, dto) in movimientosAll" :key="dto" @click="view_movimiento(dt)">
-                                <td class="fs-6">
-                                    <!-- <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> -->
-                                    {{dt.fecha}}
-                                    <br>{{ dt.detalle }}
-                                </td>
-                                <td class="text-center"></td>
-                                <td class="text-center fs-5">
-                                    <span :class="dt.tipo == 'in'? 'text-success':'text-danger'">$ {{ parseFloat(dt.movimiento).toLocaleString('es')}}</span>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="card p-2">
+                    <h5 class="text-center">
+                        MOVIMIENTOS
+                    </h5>
+                    <div class="table-responsive">
+                         <table class="table">
+                             <tbody>
+                                 <tr style="cursor: pointer;" v-for="(dt, dto) in movimientosAll" :key="dto" @click="view_movimiento(dt)">
+                                     <td class="fs-6">
+                                         <!-- <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> -->
+                                         {{dt.fecha}}
+                                         <br>{{ dt.detalle }}
+                                     </td>
+                                     <td class="text-center"></td>
+                                     <td class="text-center fs-5">
+                                         <span :class="dt.tipo == 'in'? 'text-success':'text-danger'">$ {{ parseFloat(dt.movimiento).toLocaleString('es')}}</span>
+                                     </td>
+                                 </tr>
+                             </tbody>
+                         </table>
+                    </div>
                 </div>
 
             </div>
             <div :class="showMenu == '3'? 'px-0 py-3':'d-none' ">
-                <!-- inicio -->
                 <div class="row">
-                    <div class="col-12">
-                        <div class="btn-group w-100" role="group" aria-label="Basic radio toggle button group">
-                            <input type="radio" class="btn-check" @click="movimientoOpcion='in'" name="btnradio" id="btnradio1" autocomplete="off" checked>
-                            <label class="btn btn-outline-primary" for="btnradio1">INGRESO</label>
-
-                            <input type="radio" class="btn-check" @click="movimientoOpcion='out'" name="btnradio" id="btnradio2" autocomplete="off">
-                            <label class="btn btn-outline-danger" for="btnradio2">SALIDA</label>
-                        </div>
+                    <div class="col-8">
+                        <h4>REGISTRO DE MOVIMIENTO</h4> 
+                    </div>
+                    <div class="col-4 text-danger text-end m-0 p-0 pe-3">
+                        <span class="badge badge-danger px-2 mb-2" @click="desactivar_movimiento()">
+                            <i class="fa-solid fa-x"></i>
+                        </span>
                     </div>
                 </div>
-                <div :class="movimientoOpcion == 'in' ? 'card p-3 bg-light-success border border-light-success':'d-none'">
+                <div :class="movimientoOpcion == 'in' ? 'card p-3 bg-light-success pb-4 mb-5':'d-none'">
                     <form>
                         <div class="row mb-3">
                             <label for="inputEmail3" class="col-sm-12 col-form-label">DINERO A INGRESAR</label>
@@ -167,11 +201,11 @@
                                 </select>
                             </div>
                         </div>
-                        <div @click="registro_movimiento" class="btn btn-primary w-100 py-3 mt-3" >REGISTRAR INGRESO</div>
+                        <div @click="registro_movimiento" class="btn btn-primary fs-5 w-100 py-3 mt-3" >REGISTRAR INGRESO</div>
                     </form>
                 </div>
 
-                <div :class="movimientoOpcion == 'out' ? 'card bg-light-danger border border-light-danger p-3':'d-none'">
+                <div :class="movimientoOpcion == 'out' ? 'card bg-light-danger  p-3 pb-4 mb-5':'d-none'">
                     <form>
                         <div class="row mb-3">
                             <label for="inputEmail3" class="col-sm-12 col-form-label">SALIDA DE DINERO</label>
@@ -204,14 +238,13 @@
                                 </select>
                             </div>
                         </div>
-                        <div @click="registro_movimiento" class="btn btn-danger py-3 w-100" >REGISTRAR SALIDA </div>
+                        <div @click="registro_movimiento" class="btn btn-danger fs-5 py-3 w-100" >REGISTRAR SALIDA </div>
                     </form>
                 </div>
                 <!-- fin -->
             </div>
         </div>
          <!-- modal movimiento-->
-          
          <div class="modal dialog-centered" id="ModalMovimiento" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-xl" role="document">
                 <div class="modal-content fondo">
@@ -261,7 +294,6 @@
             </div>
         </div>
         <!-- Fin modal Movimiento -->
-
         <!-- modal caja-->
         <div class="modal fade zoom-in-up" id="ModalCaja" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-xl" role="document">
@@ -357,7 +389,6 @@
 
   <script>
     import axios from 'axios';
-    //import PieChart from './../amcharts/pie.vue';
     export default {
         props:{
             path:{type:String, default:''},
@@ -395,6 +426,14 @@
             }
         },
         methods:{
+            
+            activar_movimiento: function(view, opcion){
+                this.showMenu = view;
+                this.movimientoOpcion = opcion
+            },
+            desactivar_movimiento: function(){
+                this.showMenu = 1;
+            },
             change_tipo_movimiento: function(arg){
                 let x = arg;
                 switch(arg){
@@ -404,7 +443,7 @@
                 return x;
             },
             selectOpcion: function(arg){
-                this.showMenu = arg.id;
+                this.showMenu = arg;
             },
             setOpcion: function(arg){
                 this.opcion = arg
@@ -576,7 +615,7 @@
 
                         Swal.fire({
                             title: "Eliminado!",
-                            text: "Tu opción "+cj+" ha sido eliminada.",
+                            text: "Tu opción ("+this.movimientoX.detalle+") ha sido eliminada.",
                             icon: "success"
                         });
                     }
@@ -631,7 +670,7 @@
                         (elm.tipo == 'in')?this.sumaIn = this.sumaIn + elm.movimiento:this.sumaOut = this.sumaOut + elm.movimiento
                         return elm;
                     });
-                    this.$refs['caja'].setDatos(res.data.filter(elm => elm.tipo == 'in'));
+                   // this.$refs['caja'].setDatos(res.data.filter(elm => elm.tipo == 'in'));
                     this.$refs['movimientos'].setDatos(res.data);
                     this.status = this.state.LOADED;
                     // console.log('datos-----ih');
@@ -688,19 +727,46 @@
                 $('#ModalMovimiento').modal('show');
             },
             saldo_cajas: function(){
-                if(this.status != this.state.LOADING){
+                
                     this.status = this.state.LOADING;
                     axios.post(this.path+'/saldo_cajas-vue').then(res => {
                         this.saldoCajas = res.data;
+                        console.log('isa----------------')
                         console.log(this.saldoCajas);
-                        this.$refs['saldo_in'].setDatos(res.data.filter(elm => elm.tipo == 'in'));
-                        this.$refs['saldo_out'].setDatos(res.data.filter(elm => elm.tipo == 'out'));
+                        console.log('isa----------------')
+                        let saldear = this.saldear_cajas(this.saldoCajas);
+                        this.$refs['saldo_caja'].setDatos(Object.values(saldear));
+                        
                         this.status = this.state.LOADED;
+                        alert('carga')
                     }).catch(err => {
                         this.status = this.state.FAILED;
                         console.log(err)
                     })
-                }
+                
+            },
+            saldear_cajas: function(raw){
+                let cmps = {};
+                let tm = {};
+                let cate = '';
+                let campo = '';  
+                raw.forEach(elm => { 
+                    cate = elm.caja;
+                    if(tm[cate] == undefined){
+                        tm[cate] = {'Caja': cate, 'Saldo': 0};
+                    }
+                    if(elm.tipo == 'in'){
+                        tm[cate].Saldo += parseInt(elm.movimiento);
+                    }else{
+                        tm[cate].Saldo = (tm[cate].Saldo - parseInt(elm.movimiento));
+                    }   
+                        
+                });
+                console.log('saldear cajas')
+                console.log(tm);
+                console.log('fin saldear')
+                return tm;
+                
             },
             limpiar: function(){
                 this.id_caja = 0;
@@ -723,13 +789,17 @@
         },
         mounted() {
             this.cargar_cajas();
+            this.saldo_cajas();
             this.cargar_opcion();
             this.cargar_movimientos();
-            this.saldo_cajas();
         }
     }
   </script>
   <style scoped>
     .colmin {width: 1%; white-space: nowrap; text-align: center}
     .loading {opacity: .45; pointer-events: none; user-select: none}
+    .bg-1{background: #2cd7ea; border:none}
+    .bg-2{background: #01F9daAE; border:none}
+    .fija{position: absolute; z-index: 1;width: 50px; margin-top: 30%;}
+    .fija2{margin-left:87% ; position: absolute; z-index: 1;width: 50px; margin-top: 30%; }
   </style>
