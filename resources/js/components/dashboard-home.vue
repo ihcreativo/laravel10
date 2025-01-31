@@ -27,7 +27,7 @@
         <!--header -->
         <div class="row my-3">
             <div class="col-4">
-                <img class="w-100" :src="path+'/img/logo_mini.png'">
+                <img class="w-100" :src="path+'/img/logo_control.svg'">
             </div>
             <div class="col-8 dropdown">
                 <div class="float-end" data-bs-toggle="dropdown" aria-expanded="false">
@@ -87,8 +87,8 @@
                                     </span>
                                 </div>
                                 <div>
-                                    <span class="badge badge-light-success px-3" @click="activar_movimiento(3,'out')">        
-                                        <img  class="pb-2" :src="path+'/img/minus.png'"><br> REGISTRA SALIDA
+                                    <span class="badge badge-light-success text-danger px-3" @click="activar_movimiento(3,'out')">        
+                                        <img  class="pb-2" :src="path+'/img/minus.png'"><br> REGISTRAR SALIDA
                                     </span>
                                 </div>
                             </div>

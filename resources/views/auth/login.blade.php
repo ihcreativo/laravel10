@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <title> IshevI</title>
-    @vite(['resources/scss/app.scss', 'resources/js/app.js'])
+    <link rel="icon" type="image/x-icon" href="img/favicon.png "/>
+    @vite(['resources/scss/app.scss'])
     {{-- <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}"> --}}
     <style>
         .logo {margin:10% auto; width: 38%; display: flex; vertical-align: middle;}
@@ -17,7 +18,7 @@
         <div class="row">
             <div class="col-xl-7 col-lg-7 col-sm-12 col-xs-12 vh-100 degradadoX">
                 <div class="">
-                    <img class="logo pt-1" src="{{ asset( 'img/logomediano.png')}}"/>												
+                    <img class="logo pt-1" src="{{ asset( 'img/logo_panel.svg')}}"/>												
                 </div>
             </div>
             <div class="col-xl-5 col-lg-5 col-sm-12 col-xs-12 px-5">	       
@@ -85,9 +86,9 @@
                 </div>
             
                 <div class="d-flex align-items-center justify-content-center mt-3">			
-                    <img src="{{ asset('img/logo_min.png') }}" title="Innovación Analítica S.A.S." alt="Innovación Analítica S.A.S." height="30px">								
+                    <img src="{{ asset('img/logo.svg') }}" title="Ishevi.com"  height="23px">								
                     <!--<span class="ms-3" style="letter-spacing: 1px; font: 11px Arial;">Innovación Analítica S.A.S.</span>-->
-                    &nbsp;&nbsp;IshevI - Soluciones Eficiente
+                    &nbsp;&nbsp;
                 </div>
                 
             </div>

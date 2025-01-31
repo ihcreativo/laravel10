@@ -8,7 +8,7 @@
     <meta name="user" content="{{ Auth::user() }}"> 
     <title> @yield('titulo') </title>
     
-    <link rel="icon" type="image/x-icon" href="{{ asset( 'assets-cork/src/assets/img/favicon.ico') }} "/>
+    <link rel="icon" type="image/x-icon" href="{{ asset( '/img/favicon.png') }} "/>
     <link href="{{ asset('assets-cork/layouts/modern-light-menu/css/light/loader.css') }} " rel="stylesheet" type="text/css" />
     <script src="{{ asset('assets-cork/layouts/modern-light-menu/loader.js') }} "></script>
     <script src="https://kit.fontawesome.com/58a25a80e0.js" crossorigin="anonymous"></script>
