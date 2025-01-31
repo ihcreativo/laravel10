@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <title> IshevI</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
     <link rel="icon" type="image/x-icon" href="img/favicon.png "/>
     @vite(['resources/scss/app.scss'])
     {{-- <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}"> --}}

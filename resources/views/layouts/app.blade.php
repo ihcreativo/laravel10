@@ -55,8 +55,8 @@
     @yield('outcontent')  
     <script src="{{ asset('/js/jquery.min.js')}}"></script>
     <script src="{{ asset('/js/bootstrap.min.js')}}"></script>
+    {{-- dev --}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-   
     {{-- fin dev --}}
     {{-- produccion --}}
     {{-- <script src="/build/assets/app.js"></script> --}}

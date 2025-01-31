@@ -73,9 +73,8 @@
                                         <img :src="path+'/img/money-bag.png'" alt="money-bag">
                                     </span>
                                 </div>
-
                                 <div class="balance-info">
-                                    <h6>SALDO ACTUAL</h6>
+                                    <h6>SALDO</h6>
                                     <p> $ {{parseFloat(sumaIn-sumaOut).toLocaleString('es') }}</p>
                                 </div>
                             </div>
@@ -95,9 +94,37 @@
                         </div>
                     </div>
                 </div>
-                <div class="card my-3 py-3">
+                <!-- modulo x -->
+                <div class="widget-four mt-3 mb-5">
+                    <div class="widget-heading text-center">
+                        <h5 class="">SALDO POR CAJA</h5>
+                    </div>
+                    <div class="widget-content">
+                        <div class="vistorsBrowser">
+                            <div class="browser-list" v-for="(x, t) in saldoCajas" :key="t">
+                                <div class="w-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chrome"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="4"></circle><line x1="21.17" y1="8" x2="12" y2="8"></line><line x1="3.95" y1="6.06" x2="8.54" y2="14"></line><line x1="10.88" y1="21.94" x2="15.46" y2="14"></line></svg>
+                                </div>
+                                <div class="w-browser-details" @click="alert(x.Caja)">
+                                    <div class="w-browser-info">
+                                        <h6>{{ x.Caja }}</h6>
+                                        <p class="browser-count fs- text-dark">$ {{parseFloat(x.Saldo).toLocaleString('es')}}</p>
+                                    </div>
+                                    <div class="w-browser-stats">
+                                        <div class="progress">
+                                            <div :class="(t % 2 != 0)?'progress-bar bg-gradient-primary':'progress-bar bg-gradient-warning'" e="progressbar" :style="x.dato" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>  
+                        </div>
+
+                    </div>
+                </div>
+                <!-- modulo x fin -->
+                <!-- <div class="card my-3 py-3">
                     <div class="card-body text-center">
-                        <h6 class="mb-0 ih-title">SALDO ACTUAL POR CAJAS</h6>
+                        <h6 class="mb-0 ih-title">SALDO POR CAJAS</h6>
                     </div>
                     <amchart-barra
                         etiquetas
@@ -111,8 +138,8 @@
                         ref="saldo_caja"
                         campo_categoria="Caja"
                         campo_valor="Saldo"></amchart-barra>
-                </div>
-                <div class="card my-3 py-3">
+                </div> -->
+                <!-- <div class="card my-3 py-3">
                     <amchart-linea
                         etiquetas
                         paleta="#1cdddc,#a5d8eb,#fa9f9e,#b4c1c7,#ffded9,#b0f0a4,#aef0ff,#ffa9de,#a1b4ff,#ffcf9e,#febdd1,#72cccc"
@@ -128,7 +155,7 @@
                         leyenda
                         campo_categoria="fecha"
                         campo_valor="movimiento"></amchart-linea>
-                </div>
+                </div> -->
                 
 
             </div>
@@ -138,18 +165,18 @@
                         MOVIMIENTOS
                     </h5>
                     <div class="table-responsive">
-                         <table class="table">
-                             <tbody>
-                                 <tr style="cursor: pointer;" v-for="(dt, dto) in movimientosAll" :key="dto" @click="view_movimiento(dt)">
-                                     <td class="fs-6">
+                        <table class="table">
+                            <tbody>
+                                <tr style="cursor: pointer;" v-for="(dt, dto) in movimientosAll" :key="dto" @click="view_movimiento(dt)">
+                                    <td class="fs-6">
                                          <!-- <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> -->
                                          {{dt.fecha}}
                                          <br>{{ dt.detalle }}
-                                     </td>
-                                     <td class="text-center"></td>
-                                     <td class="text-center fs-5">
+                                    </td>
+                                    <td class="text-center"></td>
+                                    <td class="text-center fs-5">
                                          <span :class="dt.tipo == 'in'? 'text-success':'text-danger'">$ {{ parseFloat(dt.movimiento).toLocaleString('es')}}</span>
-                                     </td>
+                                    </td>
                                  </tr>
                              </tbody>
                          </table>
@@ -389,6 +416,7 @@
 
   <script>
     import axios from 'axios';
+import { object } from '@amcharts/amcharts4/core';
     export default {
         props:{
             path:{type:String, default:''},
@@ -670,7 +698,7 @@
                         return elm;
                     });
                    // this.$refs['caja'].setDatos(res.data.filter(elm => elm.tipo == 'in'));
-                    this.$refs['movimientos'].setDatos(res.data);
+                    //this.$refs['movimientos'].setDatos(res.data);
                     this.status = this.state.LOADED;
                     // console.log('datos-----ih');
                     // console.log(this.movimientosAll);
@@ -725,16 +753,20 @@
                 $('#ModalMovimiento').modal('show');
             },
             saldo_cajas: function(){
-                
                     this.status = this.state.LOADING;
                     axios.post(this.path+'/saldo_cajas-vue').then(res => {
-                        this.saldoCajas = res.data;
+                        //this.saldoCajas = res.data;
                         console.log('isa----------------')
-                        console.log(this.saldoCajas);
+                        console.log(res.data);
                         console.log('isa----------------')
-                        let saldear = this.saldear_cajas(this.saldoCajas);
-                        this.$refs['saldo_caja'].setDatos(Object.values(saldear));
-                        
+                        let saldear = this.saldear_cajas(res.data);
+                       // this.$refs['saldo_caja'].setDatos(Object.values(saldear));
+                        let saldoActual =(this.sumaIn-this.sumaOut);
+                        saldear = Object.values(saldear).map(elm => {
+                            elm.dato = 'width:'+parseInt((100 / saldoActual) * elm.Saldo) + '%';
+                            return elm;
+                        })
+                        this.saldoCajas = saldear.sort((a,b)=> b.Saldo - a.Saldo);
                         this.status = this.state.LOADED;
                     }).catch(err => {
                         this.status = this.state.FAILED;
@@ -785,10 +817,10 @@
 
         },
         mounted() {
-            this.cargar_cajas();
-            this.saldo_cajas();
-            this.cargar_opcion();
             this.cargar_movimientos();
+            this.cargar_opcion();
+            this.saldo_cajas();
+            this.cargar_cajas();
         }
     }
   </script>
@@ -799,4 +831,12 @@
     .bg-2{background: #01F9daAE; border:none}
     .fija{position: absolute; z-index: 1;width: 50px; margin-top: 30%;}
     .fija2{margin-left:87% ; position: absolute; z-index: 1;width: 50px; margin-top: 30%; }
+    .ih_1{background: rgb(2,0,36); background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);}
+    .ih_2{background: rgb(162,38,3);background: linear-gradient(90deg, rgba(162,38,3,1) 0%, rgba(235,170,134,1) 100%, rgba(0,212,255,1) 100%);}
+    .ih_3{background: rgb(245,189,60);background: linear-gradient(90deg, rgba(245,189,60,1) 0%, rgba(249,246,60,1) 100%);}
+    .ih_4{background: rgb(223,187,226);background: linear-gradient(0deg, rgba(223,187,226,1) 2%, rgba(136,4,109,1) 100%);}
+    .ih_5{background: rgb(246,250,246);background: linear-gradient(90deg, rgba(246,250,246,1) 0%, rgba(60,249,92,1) 100%);}
+    .ih_6{background: rgb(60,244,245);background: linear-gradient(90deg, rgba(60,244,245,1) 0%, rgba(60,172,249,1) 100%);}
+    .ih_0{background: rgb(37,74,6);background: linear-gradient(0deg, rgba(37,74,6,1) 2%, rgba(8,199,163,1) 100%);}
+    .ih-title {color:#000; font-weight: bold}
   </style>
