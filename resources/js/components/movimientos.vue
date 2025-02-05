@@ -436,42 +436,6 @@
             </div>
         </div>
         <!-- Fin modal opcion-->
-
-        <!-- modal caja moviemnto -->
-        <div class="modal fade zoom-in-up" id="ModalCajaMovimiento" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
-                <div class="modal-content fondo p-0">
-                    <div class="text-danger text-end m-1  pe-3 pt-3" data-bs-dismiss="modal" aria-label="Close">
-                        <span class="badge badge-danger m-0">
-                            <i class="fa-solid fa-x"></i>
-                        </span>
-                    </div>
-                    <div class="modal-body p-0 px-3 pb-3">
-                        <div class="card p-2">
-                            <h5 class="text-center">
-                                CAJA {{movimientoXcaja[0].caja}}
-                            </h5>
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <tbody>
-                                        <tr style="cursor: pointer;" v-for="(dt, dto) in movimientoXcaja" :key="dto" @click="view_movimiento(dt)">
-                                            <td class="fs-6">
-                                                {{dt.fecha}}
-                                                <br>{{ dt.detalle }}
-                                            </td>
-                                            <td class="text-center fs-5">
-                                                <span :class="dt.tipo == 'in'? 'text-success':'text-danger'">$ {{ parseFloat(dt.movimiento).toLocaleString('es')}}</span>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-         <!-- fin modal caja movimiento -->
     </div>
 
 
@@ -740,9 +704,15 @@ import { object } from '@amcharts/amcharts4/core';
                         (elm.tipo == 'in')?this.sumaIn = this.sumaIn + elm.movimiento:this.sumaOut = this.sumaOut + elm.movimiento
                         return elm;
                     });
-                    console.log(this.movimientosAll)
+                   // this.$refs['caja'].setDatos(res.data.filter(elm => elm.tipo == 'in'));
+                    //this.$refs['movimientos'].setDatos(res.data);
                     this.status = this.state.LOADED;
-
+                    // console.log('datos-----ih');
+                    // console.log(this.movimientosAll);
+                    // console.log('fin');
+                    // this.opcionIN = res.data.filter(elm => elm.tipo === 'in');
+                    // this.opcionOUT = res.data.filter(elm => elm.tipo === 'out');
+                    // console.log(this.opcionIN);
                 }).catch(err => {
                     console.log(err);
                     this.status = this.state.FAILED;
@@ -833,11 +803,11 @@ import { object } from '@amcharts/amcharts4/core';
                 return tm;  
             },
             view_caja: function(arg){
+                alert(arg);
                 this.movimientoXcaja = this.movimientosAll.filter(elm => elm.id_caja == arg);
                 console.log('movimiento x caja');
                 console.log(this.movimientoXcaja);
                 console.log('fin movimiento por caja');
-                $('#ModalCajaMovimiento').modal('show');
             },
             limpiar: function(){
                 this.id_caja = 0;

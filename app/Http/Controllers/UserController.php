@@ -43,15 +43,7 @@ class UserController extends Controller
     }
 
     public function usuariosAdd(){
-        if(Auth::user()->rol_id == '3'){
-            $cliente_id = Auth::user()->cliente_id;
-            $clientes = AuthCliente::all()->where('id','=',$cliente_id);
-            $roles = User_rol::all()->where('id','=','3');
-        }else{
-            $clientes = AuthCliente::all();
-            $roles = User_rol::all()->where ('id','!=','1');
-        }
-        return view('auth.usuariosAdd',compact('roles'),compact('clientes'));
+        return view('auth.registro');
     }
 
     public function editarUser($id){ 
@@ -79,7 +71,6 @@ class UserController extends Controller
             'firts_name' => 'required|max:50',
             'password' => 'required|confirmed',
             'username' => 'required|unique:users|min:5|max:20',
-            'rol_id' => 'required'
 
         ]);
         $user = User::create([
@@ -87,13 +78,12 @@ class UserController extends Controller
             'last_name' => $request->last_name,
             'firts_name' => $request->firts_name,
             'estado' => 1,
-            'rol_id' => $request->rol_id,
+            'rol_id' => 3,
             'email' => $request->email,
-            'cliente_id' => $request->cliente_id,
-            'img' => 'none',
+            'img' => 'none.png',
             'password' =>  Hash ::make($request->password)
         ]);
-        return redirect()->route('users'); 
+        return redirect()->route('login'); 
     }
 
     public function updateUser(Request $request, $id)

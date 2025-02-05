@@ -50,6 +50,7 @@
             @yield('contenido')
         </div>
     </div>
+    
 
     <!-- END MAIN CONTAINER -->
     @yield('outcontent')  

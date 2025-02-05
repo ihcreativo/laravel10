@@ -17,11 +17,12 @@ Route::post('/search',[SettingController::class, 'search'])->name('search');
 Route::get('/result_query/{ced}',[SettingController::class, 'result_query'])->name('result_query');
 
 Route::get('/users/list',[UserController::class,'create'])->middleware('auth')->name('users');
-Route::get('/users/add',[UserController::class,'usuariosAdd'])->middleware('auth')->name('usuariosAdd');
-Route::post('/users/addUsers',[UserController::class,'store'])->middleware('auth')->name('agregarUsuario');
+Route::get('/registro',[UserController::class,'usuariosAdd'])->name('usuariosAdd');
+Route::post('/registro',[UserController::class,'store'])->name('agregarUsuario');
 Route::get('/users/edit/{id}',[UserController::class,'editarUser'])->middleware('auth')->name('usuarioX');
 Route::post('/users/edit/{id}',[UserController::class,'updateUser'])->middleware('auth')->name('updateUser');
 Route::post('/users/delete/{id}',[UserController::class,'destroy'])->middleware('auth')->name('usersDelete');
+
 Route::get('/changePassword', [UserController::class, 'showChangePasswordGet'])->middleware('auth')->name('changePasswordGet');
 Route::post('/changePassword',[UserController::class, 'changePasswordPost'])->middleware('auth')->name('changePasswordPost');
 

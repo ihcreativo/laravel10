@@ -85,6 +85,11 @@
                             />
                     </form>
                 </div>
+                <div class="text-center mt-4 text-dark">
+                    <a href="{{route('usuariosAdd')}}">
+                       Deseo registrarme como usuario... !
+                    </a>
+                </div>
             
                 <div class="d-flex align-items-center justify-content-center mt-3">			
                     <img src="{{ asset('img/logo.svg') }}" title="Ishevi.com"  height="23px">								
