@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\MovimientoController;
+use App\Http\Controllers\SettingController;
 
 Route::get('/404', [LoginController::class, 'denegado'])->middleware('auth')->name('denegado');
 Route::get('/', [LoginController::class, 'index'])->name('login.index');
@@ -12,6 +13,8 @@ Route::post('/login', [LoginController::class,'store']);
 
 Route::get('/salir', [LoginController::class, 'salir'])->name('salir');
 Route::get('/dashboard',[LoginController::class,'dashboard'])->middleware('auth')->name('dashboard');
+Route::get('/movimientos',[LoginController::class,'movimientos'])->middleware('auth')->name('movimientos');
+Route::get('/configuracion',[LoginController::class,'setting'])->middleware('auth')->name('setting');
 
 Route::post('/search',[SettingController::class, 'search'])->name('search');
 Route::get('/result_query/{ced}',[SettingController::class, 'result_query'])->name('result_query');
@@ -29,6 +32,7 @@ Route::post('/changePassword',[UserController::class, 'changePasswordPost'])->mi
 // rutas vue
 Route::post('/cajas-vue', [MovimientoController::class, 'Cajas']);
 Route::post('/opcion-vue', [MovimientoController::class, 'MovimientoOpcion']);
+Route::post('/get_saldo-vue', [MovimientoController::class, 'getSaldo']);
 
 Route::post('/registrarMovimiento-vue', [MovimientoController::class, 'registrarMovimiento']);
 Route::post('/movimientos-vue', [MovimientoController::class, 'Movimientos']);
@@ -38,6 +42,15 @@ Route::post('/eliminar_caja-vue', [MovimientoController::class, 'eliminar_caja']
 Route::post('/agregar_opcion-vue', [MovimientoController::class, 'agregar_opcion']);
 Route::post('/eliminar_opcion-vue', [MovimientoController::class, 'eliminar_opcion']);
 Route::post('/eliminar_movimiento-vue', [MovimientoController::class, 'eliminar_movimiento']);
+
+// DashBoard principa setting
+Route::post('/nivelar_caja-vue', [MovimientoController::class, 'nivelar_caja']);
+Route::post('/getSetting-vue', [SettingController::class, 'getSetting']);
+Route::post('/update_setting-vue', [SettingController::class, 'updateSetting']);
+Route::post('/trasladar_dinero-vue', [MovimientoController::class, 'trasladarDinero']);
+
+
+
 
 
 

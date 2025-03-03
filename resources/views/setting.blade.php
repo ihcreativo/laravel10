@@ -1,11 +1,11 @@
 @auth
     @extends('layouts.app_normal')
     @section('titulo')
-        KAKEBO - iShevi
+        CONFIGURACION - KAKEBO
     @endsection
     @section('contenido') 
         <div class="container-fluid"> 
-            <dashboard path="{{route('login.index')}}"></dashboard>
+            <configuracion path="{{route('login.index')}}"></configuracion>
         </div>
     @endsection
 @endauth

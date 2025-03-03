@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Models\User;
-// use App\Models\User_rol;
-// use App\Models\AuthCliente;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -83,8 +82,18 @@ class UserController extends Controller
             'img' => 'none.png',
             'password' =>  Hash ::make($request->password)
         ]);
+        $us = new User();
+        $idU = $us::latest()->first()->id;
+        $opc =  new Setting();
+            $opc->movimientos =  'Semana';
+            $opc->paginador = '30';
+            $opc->id_user = $idU;
+            $opc->saldos_banco = 'si';
+            $opc->save();
+        
         return redirect()->route('login'); 
     }
+
 
     public function updateUser(Request $request, $id)
     {

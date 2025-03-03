@@ -8,6 +8,7 @@
     <meta name="user" content="{{ Auth::user() }}"> 
     <title> @yield('titulo') </title>
     
+    
     <link rel="icon" type="image/x-icon" href="{{ asset( 'assets-cork/src/assets/img/favicon.ico') }} "/>
     <link href="{{ asset('assets-cork/layouts/modern-light-menu/css/light/loader.css') }} " rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets-cork/layouts/modern-light-menu/css/dark/loader.css') }} " rel="stylesheet" type="text/css" />
@@ -90,7 +91,8 @@
     <script src="{{ asset('/js/bootstrap.min.js')}}"></script>
     <script src="{{ asset('/plugins/src/perfect-scrollbar/perfect-scrollbar.min.js')}}"></script> 
     {{-- dev --}}
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/js/app.js'])
+    
    
     {{-- fin dev --}}
     {{-- produccion --}}
@@ -103,4 +105,5 @@
     {{-- <script src="{{ asset('/js/bootstrap.bundle.min.js')}}"></script> --}}
 </body>
 </html>
+
 

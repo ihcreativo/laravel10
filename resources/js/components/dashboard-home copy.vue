@@ -1,5 +1,65 @@
 <template>
     <div :class="status">
+        <div class="fixed-bottom text-dark w-100">
+            <div class="d-flex justify-content-between align-items-center">
+                <div :class="showMenu == 1? 'form-control rounded-0 text-center text-dark bg-dark text-white m-0 p-0 pt-3':'form-control rounded-0 text-center text-dark bg-light-dark m-0 p-0 pt-3'" @click="selectOpcion('1')">
+                    <!-- <img src="img/ico/home.png" width="40"> -->
+                    <i class="fa-solid fa-house fs-5"></i>
+                    <fieldset>Inicio</fieldset>
+                </div>
+                <div :class="showMenu == 2? 'form-control rounded-0 text-center text-dark bg-dark text-white m-0 p-0 pt-3':'form-control rounded-0 text-center text-dark bg-light-dark m-0 p-0 pt-3'" @click="selectOpcion('2')">
+                    <!-- <img src="img/ico/reservas1.png" width="40"> -->
+                    <i class="fa-solid fa-sack-dollar fs-5"></i>
+                    <fieldset>Movimientos</fieldset>
+                </div>
+                <div :class="showMenu == 4? 'form-control rounded-0 text-center text-dark bg-dark text-white m-0 p-0 pt-3':'form-control rounded-0 text-center text-dark bg-light-dark m-0 p-0 pt-3'" @click="selectOpcion('4')">
+                    <div class="">
+                        <i class="fa-solid fa-gear fs-5"></i>
+                        <fieldset>Setting</fieldset>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+        <!-- fin de menu fixed-bottom -->
+        <!--header -->
+        <div class="row my-3">
+            <div class="col-6">
+                <img class="w-100" :src="path+'/img/logo_control.svg'">
+            </div>
+            <div class="col-6 dropdown">
+                <div class="float-end" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img class="" :src="path+'/img/iuser.png'" width="40">
+                </div>
+                <ul class="dropdown-menu media-body px-2">
+                    <li class="py-1">
+                        <a class="dropdown-item" href="#">Mi Cuenta</a>
+                    </li>
+                    <li class="py-1">
+                        <a class="dropdown-item" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-lock-fill" viewBox="0 0 16 16">
+                                <path d="M7 6a1 1 0 0 1 2 0v1H7V6zM6 8.3c0-.042.02-.107.105-.175A.637.637 0 0 1 6.5 8h3a.64.64 0 0 1 .395.125c.085.068.105.133.105.175v2.4c0 .042-.02.107-.105.175A.637.637 0 0 1 9.5 11h-3a.637.637 0 0 1-.395-.125C6.02 10.807 6 10.742 6 10.7V8.3z"/>
+                                <path d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm-2 6v1.076c.54.166 1 .597 1 1.224v2.4c0 .816-.781 1.3-1.5 1.3h-3c-.719 0-1.5-.484-1.5-1.3V8.3c0-.627.46-1.058 1-1.224V6a2 2 0 1 1 4 0z"/>
+                              </svg>
+                            
+                            Modificar contraseñaa
+                        </a>
+                    </li>
+                    <li class="py-1">
+                        <a class="dropdown-item" :href="path+'/salir'">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-power" viewBox="0 0 16 16">
+                                <path d="M7.5 1v7h1V1h-1z"/>
+                                <path d="M3 8.812a4.999 4.999 0 0 1 2.578-4.375l-.485-.874A6 6 0 1 0 11 3.616l-.501.865A5 5 0 1 1 3 8.812z"/>
+                              </svg>
+                            <span>Cerrar sesion</span>
+                        </a>
+                    </li>
+                    
+                     
+                </ul>
+            </div>
+        </div>
+        <!-- fin header -->
+
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
             <div :class="showMenu == '1'? 'px-0 py-0':'d-none' ">
                 <div class="widget widget-card-five px-2">
@@ -801,6 +861,7 @@
                             this.status = this.state.FAILED;
                         });
 
+
                         Swal.fire({
                             title: "Eliminado!",
                             text: "Tu opción ("+this.movimientoX.detalle+") ha sido eliminada.",
@@ -903,11 +964,6 @@
                 console.log(Movi)
                 this.$refs['mi_dia'].setDatos(this.Agrupar(Movi.filter(elm => elm.date == this.hoy),'tipo','movimiento'));
                 this.miDia = Movi.filter(elm => elm.date === this.hoy);
-                console.log('isaias herazo viera')
-                console.log(this.hoy)
-                console.log(this.miDia);
-                console.log(Movi)
-                console.log('fin de conteo') 
                 // fin grafico dia
                 // grafico de semana----------------------------------
                 console.log('semana')
@@ -940,11 +996,6 @@
                 if(arg < 10)fec = '0'+arg;
                 return fec;
             },
-            getDia: function(arg){
-                let dia = arg;
-                if(arg < 10)dia = '0'+arg;
-                return dia;
-            },
             registro_movimiento : function(){
                 if(this.status != this.state.LOADING){
                     this.status = this.state.LOADING;
@@ -967,28 +1018,16 @@
                             this.response = res.data;
                             this.status = this.state.LOADED;
                             if(this.response.state == 'ok'){
-                                this.showMenu = 1;
-                                this.cargar_movimientos();
-                                this.get_saldo();
-                                this.saldo_cajas();
-                                Swal.fire({
-                                    title: "Registrado..!",
-                                    text: "El movimiento ("+this.detalle+") ha sido registrado correctamente...",
-                                    icon: "success"
-                                });
                                 this.limpiar();
+                                this.showMenu = 2;
+                                this.cargar_movimientos();
                             }
                         }).catch(err => {
                             this.status = this.state.FAILED;
                             console.log(err)
                         })
                     }else{
-                        this.status = this.state.LOADED;
-                        Swal.fire({
-                            title: "ERROR..!",
-                            text: "Los campos (son obligatorios)...",
-                            icon: "warning"
-                        });
+                        alert('Los campos (son obligatorios)')
                     }
                 }
 
@@ -1100,7 +1139,7 @@
             }
         },
         mounted() {
-            this.hoy = this.getDia(this.fecha.getDate())+'-'+(this.getMes(this.fecha.getMonth()+1))+'-'+this.fecha.getFullYear(); //fecha hoy
+            this.hoy = this.fecha.getDate()+'-'+(this.getMes(this.fecha.getMonth()+1))+'-'+this.fecha.getFullYear(); //fecha hoy
             this.listen();
             this.getSetting();
             this.get_saldo();

@@ -4,11 +4,11 @@
             <div class="nav-logo">
                 <div class="nav-item theme-logo">
                     <a href="javascript:void(0)">
-                        <img src="{{ asset('assets-cork/src/assets/img/logos/logo.svg') }}" alt="logo">
+                        <img src="{{ asset('img/favicon.png') }}" alt="logo">
                     </a>
                 </div>
                 <div class="nav-item theme-text">
-                    <a href="javascript:void(0)" class="nav-link morfee-title">morfee</a>
+                    <a href="javascript:void(0)" class="nav-link morfee-title">Kakebo</a>
                 </div>
             </div>
             

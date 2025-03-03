@@ -41,6 +41,28 @@ class LoginController extends Controller
         }   
     }
 
+    public function setting(){
+        if(!auth()){
+            return view('auth.login');  
+            //return redirect()->route('login');
+        }else{
+            //$idtipo = auth()->user()->rol_id; 
+            // echo auth()->user();
+            return view('setting');
+        }   
+    }
+
+    public function movimientos(){
+        if(!auth()){
+            return view('auth.login');  
+            //return redirect()->route('login');
+        }else{
+            //$idtipo = auth()->user()->rol_id; 
+            // echo auth()->user();
+            return view('movimientos');
+        }   
+    }
+
     public function cliente_id(){
         return 'probando';
     }

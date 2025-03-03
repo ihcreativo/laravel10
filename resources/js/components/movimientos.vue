@@ -1,290 +1,46 @@
 <template>
     <div :class="status">
-        <div class="fixed-bottom text-dark w-100">
-            <div class="d-flex justify-content-between align-items-center">
-                <div :class="showMenu == 1? 'form-control rounded-0 text-center text-dark bg-dark text-white m-0 p-0 pt-3':'form-control rounded-0 text-center text-dark bg-light-dark m-0 p-0 pt-3'" @click="selectOpcion('1')">
-                    <!-- <img src="img/ico/home.png" width="40"> -->
-                    <i class="fa-solid fa-house fs-5"></i>
-                    <fieldset>Inicio</fieldset>
-                </div>
-                <div :class="showMenu == 2? 'form-control rounded-0 text-center text-dark bg-dark text-white m-0 p-0 pt-3':'form-control rounded-0 text-center text-dark bg-light-dark m-0 p-0 pt-3'" @click="selectOpcion(2)">
-                    <!-- <img src="img/ico/reservas1.png" width="40"> -->
-                    <i class="fa-solid fa-sack-dollar fs-5"></i>
-                    <fieldset>Movimientos</fieldset>
-                </div>
-                <div :class="showMenu == 3? 'form-control rounded-0 text-center text-dark bg-dark text-white m-0 p-0 pt-3':'form-control rounded-0 text-center text-dark bg-light-dark m-0 p-0 pt-3'" @click="selectOpcion(3)">
-                    <div class="">
-                        <i class="fa-solid fa-gear fs-5"></i>
-                        <fieldset>Mi cuenta</fieldset>
-                    
-                    </div>
-                   
-                </div>
-            </div>
-        </div>
-        <!-- fin de menu fixed-bottom -->
-        <!--header -->
-        <div class="row my-3">
-            <div class="col-6">
-                <img class="w-100" :src="path+'/img/logo_control.svg'">
-            </div>
-            <div class="col-6 dropdown">
-                <div class="float-end" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img class="" :src="path+'/img/iuser.png'" width="40">
-                </div>
-                <ul class="dropdown-menu media-body px-2">
-                    <li class="py-1">
-                        <a class="dropdown-item" href="#">Mi Cuenta</a>
-                    </li>
-                    <li class="py-1">
-                        <a class="dropdown-item" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-lock-fill" viewBox="0 0 16 16">
-                                <path d="M7 6a1 1 0 0 1 2 0v1H7V6zM6 8.3c0-.042.02-.107.105-.175A.637.637 0 0 1 6.5 8h3a.64.64 0 0 1 .395.125c.085.068.105.133.105.175v2.4c0 .042-.02.107-.105.175A.637.637 0 0 1 9.5 11h-3a.637.637 0 0 1-.395-.125C6.02 10.807 6 10.742 6 10.7V8.3z"/>
-                                <path d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm-2 6v1.076c.54.166 1 .597 1 1.224v2.4c0 .816-.781 1.3-1.5 1.3h-3c-.719 0-1.5-.484-1.5-1.3V8.3c0-.627.46-1.058 1-1.224V6a2 2 0 1 1 4 0z"/>
-                              </svg>
-                            
-                            Modificar contraseña
-                        </a>
-                    </li>
-                    <li class="py-1">
-                        <a class="dropdown-item" :href="path+'/salir'">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-power" viewBox="0 0 16 16">
-                                <path d="M7.5 1v7h1V1h-1z"/>
-                                <path d="M3 8.812a4.999 4.999 0 0 1 2.578-4.375l-.485-.874A6 6 0 1 0 11 3.616l-.501.865A5 5 0 1 1 3 8.812z"/>
-                              </svg>
-                            <span>Cerrar sesion</span>
-                        </a>
-                    </li>
-                    
-                     
-                </ul>
-            </div>
-        </div>
-        <!-- fin header -->
+     
 
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
-            <div :class="showMenu == '1'? 'px-0 py-0':'d-none' ">
-                <div class="widget widget-card-five px-2">
-                    <div class="widget-content">
-                        <div class="account-box">
-                            <div class="info-box">
-                                <div class="icon">
-                                    <span>
-                                        <img :src="path+'/img/money-bag.png'" alt="money-bag">
-                                    </span>
-                                </div>
-                                <div class="balance-info">
-                                    <h6>SALDO</h6>
-                                    <p> $ {{parseFloat(sumaIn-sumaOut).toLocaleString('es') }}</p>
-                                </div>
-                            </div>
-
-                            <div class="card-bottom-section">
-                                <div class="pe-0">
-                                    <span class="badge badge-light-success px-3" @click="activar_movimiento(3,'in')">
-                                        <img class="py-2" :src="path+'/img/plus.png'" ><br>REGISTRAR INGRESO
-                                    </span>
-                                </div>
-                                <div class="ps-3">
-                                    <span class="badge badge-light-success text-danger px-3" @click="activar_movimiento(3,'out')">        
-                                        <img  class="py-2" :src="path+'/img/minus.png'"><br> REGISTRAR SALIDA
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- modulo x -->
-                <div class="widget-four mt-3 mb-5">
-                    <div class="widget-heading text-center">
-                        <h5 class="">SALDO POR CAJA</h5>
-                    </div>
-                    <div class="widget-content">
-                        <div class="vistorsBrowser">
-                            <div class="browser-list" v-for="(x, t) in saldoCajas" :key="t">
-                                <div class="w-icon">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chrome"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="4"></circle><line x1="21.17" y1="8" x2="12" y2="8"></line><line x1="3.95" y1="6.06" x2="8.54" y2="14"></line><line x1="10.88" y1="21.94" x2="15.46" y2="14"></line></svg>
-                                </div>
-                                <div class="w-browser-details" @click="view_caja(x.id_caja)">
-                                    <div class="w-browser-info">
-                                        <h6>{{ x.Caja }}</h6>
-                                        <p class="browser-count fs- text-dark">$ {{parseFloat(x.Saldo).toLocaleString('es')}}</p>
-                                    </div>
-                                    <div class="w-browser-stats">
-                                        <div class="progress">
-                                            <div :class="(t % 2 != 0)?'progress-bar bg-gradient-primary':'progress-bar bg-gradient-warning'" e="progressbar" :style="x.dato" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>  
-                        </div>
-
-                    </div>
-                </div>
-                <!-- modulo x fin -->
-                <!-- <div class="card my-3 py-3">
-                    <div class="card-body text-center">
-                        <h6 class="mb-0 ih-title">SALDO POR CAJAS</h6>
-                    </div>
-                    <amchart-barra
-                        etiquetas
-                        multicolor
-                        paleta="#fa9f9e,#b4c1c7,#ffded9,#b0f0a4,#aef0ff,#ffa9de,#a1b4ff,#ffcf9e,#febdd1,#72cccc"
-                        altura="250"
-                        redondeado
-                        cursor
-                        tooltip
-                        sin_valores
-                        ref="saldo_caja"
-                        campo_categoria="Caja"
-                        campo_valor="Saldo"></amchart-barra>
-                </div> -->
-                <!-- <div class="card my-3 py-3">
-                    <amchart-linea
-                        etiquetas
-                        paleta="#1cdddc,#a5d8eb,#fa9f9e,#b4c1c7,#ffded9,#b0f0a4,#aef0ff,#ffa9de,#a1b4ff,#ffcf9e,#febdd1,#72cccc"
-                        efecto
-                        radio="40"
-                        grosor="2"
-                        cursor
-                        puntos
-                        tooltip
-                        preloading
-                        altura="300"
-                        ref="movimientos"
-                        leyenda
-                        campo_categoria="fecha"
-                        campo_valor="movimiento"></amchart-linea>
-                </div> -->
-                
-
-            </div>
-            <div :class="showMenu == '2'? 'px-0 py-0 mb-5':'d-none' ">
+           <div class="fs-6 text-end">
+            <span class="fs-6 py-2">
+                SALDO ACTUAL:
+            </span>
+            <span class="fw-bold px-2">
+                $ {{ parseFloat(sumaIn-sumaOut).toLocaleString('es')}}
+            </span>
+           </div>
+            <div class="px-0 py-0 mb-5">
                 <div class="card p-2">
                     <h5 class="text-center">
                         MOVIMIENTOS
                     </h5>
-                    <div class="table-responsive">
-                        <table class="table">
+                    <div class="table px-0">
+                        <table class="table w-100">
                             <tbody>
-                                <tr style="cursor: pointer;" v-for="(dt, dto) in movimientosAll" :key="dto" @click="view_movimiento(dt)">
+                                <tr style="cursor: pointer;" v-for="(dt, dto) in movimientosAll.slice(0, paginador)" :key="dto" @click="view_movimiento(dt)">
                                     <td class="fs-6">
                                          {{dt.fecha}}
                                          <br>{{ dt.detalle }}
                                     </td>
                                     <td class="text-center fs-5">
-                                         <span :class="dt.tipo == 'in'? 'text-success':'text-danger'">$ {{ parseFloat(dt.movimiento).toLocaleString('es')}}</span>
+                                         <span :class="dt.tipo == 'INGRESOS'? 'text-success':'text-danger'">$ {{ parseFloat(dt.movimiento).toLocaleString('es')}}</span>
                                     </td>
                                  </tr>
                              </tbody>
                          </table>
+                         <div class="d-flex justify-content-between mb-3">
+                            <button class="btn bg-dark btn-sm" type="button" @click="cargar_movimientos(pagina - 1)" :disabled="pagina < 2">Atrás</button>
+                            <button class="btn bg-dark btn-sm" type="button" @click="cargar_movimientos(pagina + 1)" :disabled="movimientosAll.lenght <= 50">Siguiente</button>
+                        </div>
                     </div>
                 </div>
 
-            </div>
-            <div :class="showMenu == '3'? 'px-0 py-3':'d-none' ">
-                <div class="row">
-                    <div class="col-8">
-                        <h4>REGISTRO DE MOVIMIENTO</h4> 
-                    </div>
-                    <div class="col-4 text-danger text-end m-0 p-0 pe-3">
-                        <span class="badge badge-danger px-2 mb-2" @click="desactivar_movimiento()">
-                            <i class="fa-solid fa-x"></i>
-                        </span>
-                    </div>
-                </div>
-                <div :class="movimientoOpcion == 'in' ? 'card p-3 bg-light-success pb-4 mb-5':'d-none'">
-                    <form>
-                        <label for="inputEmail3" class="col-sm-12 col-form-label">DINERO A INGRESAR</label>
-                        <div class="input-group mb-3">
-                            <input type="number" v-model="movimiento" required class="form-control" >
-                            <span class="input-group-text fw-bold">$ {{parseFloat(movimiento).toLocaleString('es')}}</span>
-                        </div>
-                        <div class="row mb-3">
-                            <label for="inputEmail3" class="col-sm-12 col-form-label">DETALLE DE INGRESO</label>
-                            <div class="col-sm-12">
-                                <textarea class="form-control" v-model="detalle" name="" id=""></textarea>
-                            </div>
-                        </div>
-                        <label class="col-form-label col-sm-12 pt-0">DONDE INGRESA EL DINERO <span @click="loadCaja()">[Add]</span></label>
-                        <div class="input-group">
-                            <span class="input-group-text btn btn-primary p-2" @click="loadCaja()">
-                                <i class="fa-solid fa-cash-register fs-3 pt-1 px-2"></i>
-                            </span>
-                            <select class="form-control" v-model="id_caja">
-                                <option v-for="(cl , i) in cajas" :key="i" :value="cl.id">
-                                    {{ cl.caja }}
-                                </option>
-                            </select>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-12 pt-3">
-                                <label class="col-form-label col-sm-12 pt-0">GENERADOR DEL DINERO </label>
-                                <div class="input-group">
-                                    <span class="input-group-text btn btn-primary p-2" @click="loadOpcion('in')">
-                                        <i class="fa-solid fa-money-bill-transfer fs-2 pt-1 px-1"></i>
-                                    </span>
-                                    <select class="form-control" v-model="id_opcion">
-                                        <option disabled value="">Seleccionar</option>
-                                        <option :value="opc.id" v-for="(opc , i) in opcionIN" :key="i">
-                                            {{ opc.opcion }}
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div @click="registro_movimiento" class="btn btn-primary fs-5 w-100 py-3 mt-3" >REGISTRAR INGRESO</div>
-                    </form>
-                </div>
-
-                <div :class="movimientoOpcion == 'out' ? 'card bg-light-danger  p-3 pb-4 mb-5':'d-none'">
-                    <form>
-                        <label for="inputEmail3" class="col-sm-12 col-form-label">SALIDA DE DINERO</label>
-                        <div class="input-group mb-3">
-                            <input type="number" v-model="movimiento" required class="form-control" >
-                            <span :class="movimiento > 0?'input-group-text fw-bold':'d-none'">$ {{parseFloat(movimiento).toLocaleString('es')}}</span>
-                        </div>
-                        <div>
-                            <label for="inputPassword3" class="col-sm-12 col-form-label">DETALLE DE SALIDA</label>
-                            <div class="col-sm-12">
-                                <textarea class="form-control" v-model="detalle" name="" id=""></textarea>
-                            </div>
-                        </div>
-                        <div>
-                            <label class="label col-sm-12 pt-0">DONDE SALE EL DINERO </label>
-                            <div class="input-group">
-                                <span class="input-group-text btn btn-primary p-2" @click="loadCaja()">
-                                    <i class="fa-solid fa-cash-register fs-3 pt-1 px-2"></i>
-                                </span>
-                                <select class="form-control" v-model="id_caja">
-                                    <option v-for="(cl , i) in cajas" :key="i" :value="cl.id">
-                                        {{ cl.caja }}
-                                    </option>
-                                </select>
-                            </div>
-                            <div class="col-12 py-3">
-                                <label class="col-form-label col-sm-12 pt-0">GENERADOR DE LA SALIDA </label>
-                                <div class="input-group">
-                                    <span class="input-group-text btn btn-primary p-2" @click="loadOpcion('out')">
-                                        <i class="fa-solid fa-money-bill-transfer fs-2 pt-1 px-1"></i>
-                                    </span>
-                                    <select class="form-control" v-model="id_opcion">
-                                        <option disabled value="">Seleccionar</option>
-                                        <option :value="opc.id" v-for="(opc , i) in opcionOUT" :key="i">
-                                            {{ opc.opcion }}
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div @click="registro_movimiento" class="btn btn-danger fs-5 py-3 w-100" >REGISTRAR SALIDA </div>
-                    </form>
-                </div>
-                <!-- fin -->
             </div>
         </div>
          <!-- modal movimiento-->
-         <div class="modal dialog-centered" id="ModalMovimiento" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal dialog-centered" id="ModalMovimiento" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-xl" role="document">
                 <div class="modal-content fondo">
                     <div class="modal-body">
@@ -333,109 +89,6 @@
             </div>
         </div>
         <!-- Fin modal Movimiento -->
-        <!-- modal caja-->
-        <div class="modal fade" id="ModalCaja" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
-                <div class="modal-content fondo p-0">
-                    <div class="text-danger text-end m-1  pe-3 pt-3" data-bs-dismiss="modal" aria-label="Close">
-                        <span class="badge badge-danger m-0">
-                            <i class="fa-solid fa-x"></i>
-                        </span>
-                    </div>
-                    <div class="modal-body p-0 px-3 pb-3 ">
-                        <!-- <label for="form-control">Nuevo banco o Caja</label> -->
-                        <form class="input-group">
-                            <input type="text" placeholder="Digite nueva Caja"  class="form-control" v-model="CajaNew">
-                            <div class="input-group-text btn btn-primary fs-5" @click="agregar_caja()"><i class="fa-solid fa-plus"></i></div>
-                        </form>
-                        <div class="mt-2 p-0">
-                            <div class="text-center fs-5 fw-bold pt-0">Mis CAJAS</div>
-                            <table class="table table-striped table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th>Caja o Banco</th>
-                                        <th>Opc</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-for="(cj ,c) in cajas" :key="c">
-                                        <td>{{ c+1 }}</td>
-                                        <td>{{ cj.caja }}</td>
-                                        <td>
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" @click="delete_caja(cj.caja,cj.id)">
-                                                <path d="M135.2 17.7L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-7.2-14.3C307.4 6.8 296.3 0 284.2 0L163.8 0c-12.1 0-23.2 6.8-28.6 17.7zM416 128L32 128 53.2 467c1.6 25.3 22.6 45 47.9 45l245.8 0c25.3 0 46.3-19.7 47.9-45L416 128z"/>
-                                            </svg>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-        <!-- Fin modal caja -->
-         <!-- modal opcion-->
-        <div class="modal fade zoom-in-up" id="ModalOpcion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
-                <div class="modal-content fondo p-0">
-                    <div class="text-danger text-end m-1  pe-3 pt-3" data-bs-dismiss="modal" aria-label="Close">
-                        <span class="badge badge-danger m-0">
-                            <i class="fa-solid fa-x"></i>
-                        </span>
-                    </div>
-                    <div class="modal-body p-0 px-3 pb-3">
-                        
-
-                        <form class="input-group">
-                            <input type="text" class="form-control" v-model="OpcionNew">
-                            <div class="input-group-text btn btn-primary fs-5" @click="agregar_opcion()">
-                                <i class="fa-solid fa-plus"></i>
-                            </div>
-                        </form>
-                        <div class="mt-2 p-0">
-                            <div class="text-center fs-5 fw-bold pt-0">Mis OPCIONES</div>
-                            <table class="table table-striped table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th v-if="opcionActive == 'in'">Opcion de Ingreso </th>
-                                        <th v-else>Opcion de Egreso </th>
-                                        <th>Opc</th>
-                                    </tr>
-                                </thead>
-                                <tbody v-if="opcionActive == 'in'">
-                                    <tr v-for="(opc , t) in opcionIN" :key="t">
-                                        <td>{{ t+1 }}</td>
-                                        <td>{{ opc.opcion }}</td>
-                                        <td>
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" @click="delete_opcion(opc.opcion,opc.id)">
-                                                <path d="M135.2 17.7L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-7.2-14.3C307.4 6.8 296.3 0 284.2 0L163.8 0c-12.1 0-23.2 6.8-28.6 17.7zM416 128L32 128 53.2 467c1.6 25.3 22.6 45 47.9 45l245.8 0c25.3 0 46.3-19.7 47.9-45L416 128z"/>
-                                            </svg>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                                <tbody v-else>
-                                    <tr v-for="(opcc , tt) in opcionOUT" :key="tt">
-                                        <td>{{ tt+1 }}</td>
-                                        <td>{{ opcc.opcion }}</td>
-                                        <td>
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" @click="delete_opcion(opcc.opcion,opcc.id)">
-                                                <path d="M135.2 17.7L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-7.2-14.3C307.4 6.8 296.3 0 284.2 0L163.8 0c-12.1 0-23.2 6.8-28.6 17.7zM416 128L32 128 53.2 467c1.6 25.3 22.6 45 47.9 45l245.8 0c25.3 0 46.3-19.7 47.9-45L416 128z"/>
-                                            </svg>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-        <!-- Fin modal opcion-->
     </div>
 
 
@@ -443,7 +96,6 @@
 
   <script>
     import axios from 'axios';
-import { object } from '@amcharts/amcharts4/core';
     export default {
         props:{
             path:{type:String, default:''},
@@ -455,6 +107,16 @@ import { object } from '@amcharts/amcharts4/core';
                 status: 'ini',
                 state: {'INI': 'ini', 'LOADING': 'loading', 'LOADED': 'loaded', 'FAILED': 'failed'},
                 cajas:[],
+                fecha: new Date(),
+                hoy : '',
+                miDia:[],
+                miSemana:[],
+                moviOpcion : '',
+                MoviView :[
+                    {'id':'Dia','opcion':'Día','show':true},
+                    {'id':'Semana','opcion':'Semana','show':false},
+                ],
+                grafico: true,
                 opcionIN:[],
                 opcionOUT:[],
                 movimiento:0,
@@ -479,10 +141,15 @@ import { object } from '@amcharts/amcharts4/core';
                 opcionActive:'',
                 movimientoX:[],
                 movimientoXcaja:[],
+                cajaSelect:'',
+                setting:[],
+                saldos_banco : '',
+                paginador: 0,
+                movimiento_:'',
+                pagina:1
             }
         },
         methods:{
-            
             activar_movimiento: function(view, opcion){
                 this.showMenu = view;
                 this.movimientoOpcion = opcion
@@ -498,128 +165,7 @@ import { object } from '@amcharts/amcharts4/core';
                 }
                 return x;
             },
-            selectOpcion: function(arg){
-                this.showMenu = arg;
-            },
-            setOpcion: function(arg){
-                this.opcion = arg
-            },
-            setCaja: function(arg){
-                this.id_caja = arg;
-            },
-            agregar_caja: function(){
-                this.status = this.state.LOADING;
-                if(this.CajaNew.length > 3){
-                    let fields =  new FormData();
-                    fields.append('caja',this.CajaNew);
-                    axios.post(this.path+'/agregar_caja-vue',fields).then(res => {
-                        if(res.data.state == 'ok'){
-                            console.log('registro exitoso');
-                            this.CajaNew = '';
-                            this.cargar_cajas();
-                        }
-                        this.status = this.state.LOADED;
-                    }).catch(err => {
-                        console.log(err);
-                        this.status = this.state.FAILED;
-                    });
-                }else{
-                    Swal.fire("Debe digitar un nombre para la CAJA o BANCO");
-                    this.status = this.state.LOADED;
-                }
-            },
-            delete_caja: function(cj, id){
-                Swal.fire({
-                    title: "Desea eliminar el BANCO o CAJA "+cj+"?",
-                    text: "Una vez eliminado, NO hay vuelta atras.!",
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#3085d6",
-                    cancelButtonColor: "#d33",
-                    confirmButtonText: "Si, deseo eliminar!"
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        this.status = this.state.LOADING;
-                        let fields =  new FormData();
-                        fields.append('id',id);
-                        axios.post(this.path+'/eliminar_caja-vue',fields).then(res => {
-                            if(res.data.state == 'ok'){
-                                console.log('Eliminacion exitosa');
-                                this.cargar_cajas();
-                            }
-                            this.status = this.state.LOADED;
-                        }).catch(err => {
-                            console.log(err);
-                            this.status = this.state.FAILED;
-                        });
 
-
-                        Swal.fire({
-                            title: "Eliminado!",
-                            text: "Tu opción "+cj+" ha sido eliminada.",
-                            icon: "success"
-                        });
-                    }
-                })
-
-            },
-            agregar_opcion: function(){
-                this.status = this.state.LOADING;
-                if(this.OpcionNew.length > 3){
-                    let fields =  new FormData();
-                    fields.append('opcion',this.OpcionNew);
-                    fields.append('tipo',this.opcionActive);
-                    //console.log(this.OpcionNew+' - '+tipo);
-                    axios.post(this.path+'/agregar_opcion-vue',fields).then(res => {
-                        if(res.data.state == 'ok'){
-                            console.log('registro exitoso');
-                            this.cargar_opcion();
-                            this.OpcionNew = '';
-                        }
-                        this.status = this.state.LOADED;
-                    }).catch(err => {
-                        console.log(err);
-                        this.status = this.state.FAILED;
-                    });
-                }else{
-                    Swal.fire('Debe digitar un nombre para la OPCION')
-                    this.status = this.state.LOADED;
-                }
-            },
-            delete_opcion: function(cj, id){
-                Swal.fire({
-                    title: "Desea eliminar la opcion "+cj+"?",
-                    text: "Una vez eliminada la OPCION, NO hay vuelta atras.!",
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#3085d6",
-                    cancelButtonColor: "#d33",
-                    confirmButtonText: "Si, deseo eliminar!"
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        this.status = this.state.LOADING;
-                        let fields =  new FormData();
-                        fields.append('id',id);
-                        axios.post(this.path+'/eliminar_opcion-vue',fields).then(res => {
-                            if(res.data.state == 'ok'){
-                                console.log('Eliminacion exitosa');
-                                this.cargar_opcion();
-                            }
-                            this.status = this.state.LOADED;
-                        }).catch(err => {
-                            console.log(err);
-                            this.status = this.state.FAILED;
-                        });
-
-
-                        Swal.fire({
-                            title: "Eliminado!",
-                            text: "Tu opción "+cj+" ha sido eliminada.",
-                            icon: "success"
-                        });
-                    }
-                });
-            },
             eliminar_movimiento: function(){
                 Swal.fire({
                     title: "Desea eliminar el movimiento "+this.movimientoX.detalle+" por valor de "+this.movimientoX.movimiento+"?",
@@ -655,35 +201,34 @@ import { object } from '@amcharts/amcharts4/core';
                     }
                 })
             },
-            cargar_cajas: function(){
+            get_saldo: function(){
                 this.status = this.state.LOADING;
-                axios.post(this.path+'/cajas-vue').then(res => {
-                    this.cajas = res.data;
-                    this.status = this.state.LOADED;
-                    console.log(this.cajas);
-                }).catch(err => {
-                    console.log(err);
-                    this.status = this.state.FAILED;
-                });
-            },
-            cargar_opcion: function(){
-                this.status = this.state.LOADING;
-                axios.post(this.path+'/opcion-vue').then(res => {
-                    this.opcionIN = res.data.filter(elm => elm.tipo === 'in');
-                    this.opcionOUT = res.data.filter(elm => elm.tipo === 'out');
-                    console.log(this.opcionIN);
+                axios.post(this.path+'/get_saldo-vue').then(res => {
+                    let saldo = res.data;
+                    saldo.forEach(elm =>{
+                        elm.tipo == 'in'?this.sumaIn = elm.movimiento:this.sumaOut = elm.movimiento;
+                    });
                     this.status = this.state.LOADED;
                 }).catch(err => {
                     console.log(err);
                     this.status = this.state.FAILED;
                 });
             },
-            cargar_movimientos:function(){
+
+            cargar_movimientos:function(page=1){
                 this.status = this.state.LOADING;
-                axios.post(this.path+'/movimientos-vue').then(res => {
+                let pam =  new FormData();
+                this.paginador = localStorage.getItem('kkebo_paginador');
+                pam.append('pagina', page);
+                pam.append('n_registro', this.paginador);
+                axios.post(this.path+'/movimientos-vue',pam).then(res => {
                     this.movimientosAll = res.data;
+                    console.log(this.movimientosAll)
+                    console.log('isaias herqzo')
+                    console.log(res.data);
+                    console.log('ramos')
                     this.movimientoMatrix = res.data;
-                    this.sumaIn = 0; this.sumaOut = 0;
+                    this.pagina =page;
                     this.movimientosAll.map(elm =>{
                         let tmp = elm.fecha.substr(5,2)
                         switch(elm.fecha.substr(5,2)){
@@ -700,23 +245,44 @@ import { object } from '@amcharts/amcharts4/core';
                             case '11': tmp = 'Nov'; break;
                             case '12': tmp = 'Dic'; break;
                         }
+                        elm.date = elm.fecha.substr(8,2)+'-'+elm.fecha.substr(5,2)+'-'+elm.fecha.substr(0,4);
                         elm.fecha = elm.fecha.substr(8,2)+' '+tmp+' '+elm.fecha.substr(0,4);
-                        (elm.tipo == 'in')?this.sumaIn = this.sumaIn + elm.movimiento:this.sumaOut = this.sumaOut + elm.movimiento
                         return elm;
                     });
-                   // this.$refs['caja'].setDatos(res.data.filter(elm => elm.tipo == 'in'));
-                    //this.$refs['movimientos'].setDatos(res.data);
+                    this.movimientosAll.map(elm =>{
+                        elm.tipo === 'in'? elm.tipo = 'INGRESOS':elm.tipo = 'SALIDAS';
+                        return elm;
+                    
+                    });
+                    
                     this.status = this.state.LOADED;
-                    // console.log('datos-----ih');
-                    // console.log(this.movimientosAll);
-                    // console.log('fin');
-                    // this.opcionIN = res.data.filter(elm => elm.tipo === 'in');
-                    // this.opcionOUT = res.data.filter(elm => elm.tipo === 'out');
-                    // console.log(this.opcionIN);
+
                 }).catch(err => {
                     console.log(err);
                     this.status = this.state.FAILED;
                 });
+            },
+            Agrupar: function(raw,opc,valor){
+                let cmps = {};
+                let tm = {};
+                let cate = '';
+                let campo = '';  
+                raw.forEach(elm => { 
+                    cate = elm[opc];
+                    if(tm[cate] == undefined){
+                        tm[cate] = {'tipo': cate, 'movimiento': 0};
+                    }
+                    tm[cate].movimiento += parseInt(elm[valor]);     
+                });
+                 console.log('Agrupado')
+                 console.log(tm);
+                 console.log('fin agrupado')
+                return Object.values(tm);  
+            },
+            getMes: function(arg){
+                let fec = arg;
+                if(arg < 10)fec = '0'+arg;
+                return fec;
             },
             registro_movimiento : function(){
                 if(this.status != this.state.LOADING){
@@ -759,80 +325,34 @@ import { object } from '@amcharts/amcharts4/core';
                 console.log(this.movimientoX);
                 $('#ModalMovimiento').modal('show');
             },
-            saldo_cajas: function(){
-                this.status = this.state.LOADING;
-                axios.post(this.path+'/saldo_cajas-vue').then(res => {
-                    //this.saldoCajas = res.data;
-                    console.log('isa----------------')
-                    console.log(res.data);
-                    console.log('isa----------------')
-                    let saldear = this.saldear_cajas(res.data);
-                    // this.$refs['saldo_caja'].setDatos(Object.values(saldear));
-                    let saldoActual =(this.sumaIn-this.sumaOut);
-                    saldear = Object.values(saldear).map(elm => {
-                        elm.dato = 'width:'+parseInt((100 / saldoActual) * elm.Saldo) + '%';
-                        return elm;
-                    })
-                    this.saldoCajas = saldear.sort((a,b)=> b.Saldo - a.Saldo);
-                    this.status = this.state.LOADED;
-                }).catch(err => {
-                    this.status = this.state.FAILED;
-                    console.log(err)
-                }) 
-            },
-            saldear_cajas: function(raw){
-                let cmps = {};
-                let tm = {};
-                let cate = '';
-                let campo = '';  
-                raw.forEach(elm => { 
-                    cate = elm.caja;
-                    if(tm[cate] == undefined){
-                        tm[cate] = {'Caja': cate, 'id_caja':elm.id_caja, 'Saldo': 0};
-                    }
-                    if(elm.tipo == 'in'){
-                        tm[cate].Saldo += parseInt(elm.movimiento);
-                    }else{
-                        tm[cate].Saldo = (tm[cate].Saldo - parseInt(elm.movimiento));
-                    }   
-                        
-                });
-                console.log('saldear cajas')
-                console.log(tm);
-                console.log('fin saldear')
-                return tm;  
-            },
-            view_caja: function(arg){
-                alert(arg);
-                this.movimientoXcaja = this.movimientosAll.filter(elm => elm.id_caja == arg);
-                console.log('movimiento x caja');
-                console.log(this.movimientoXcaja);
-                console.log('fin movimiento por caja');
-            },
-            limpiar: function(){
-                this.id_caja = 0;
-                this.id_opcion = 0;
-                this.movimiento = 0;
-                this.detalle = '';
-            },
-            loadCaja: function(){
-                $('#ModalCaja').modal('show');
-            },
-            loadOpcion: function(arg){
-                this.opcionActive = arg;
-                $('#ModalOpcion').modal('show');
-            },
+
             getImg: function(arg){
                 return this.path_img.replace('@',arg);
             },
-
+            ObtenerSemana: function(){  
+                let d = new Date(this.fecha.getFullYear(),this.fecha.getMonth(),this.fecha.getDate());  //Creamos un nuevo Date con la fecha de "this".
+                d.setHours(0, 0, 0, 0);   //Nos aseguramos de limpiar la hora.
+                d.setDate(d.getDate() + 4 - (d.getDay() || 7)); // Recorremos los días para asegurarnos de estar "dentro de la semana"
+                //Finalmente, calculamos redondeando y ajustando por la naturaleza de los números en JS:
+                return Math.ceil((((d - new Date(d.getFullYear(), 0, 1)) / 8.64e7) + 1) / 7);
+            },  
+            load_miSemana: function(arg){
+                this.miSemana = this.movimientosAll.filter(elm => (elm.tipo === arg )&&(elm.semana === this.ObtenerSemana()));      
+                this.hoy = arg;
+                $('#Modal_miSemana').modal('show');  
+            },
+            load_miDia: function(arg){
+                this.miDia = this.movimientosAll.filter(elm => (elm.tipo === arg )&&(elm.date === this.hoy));
+                this.hoy = arg;
+                $('#Modal_miDia').modal('show');  
+            },
 
         },
         mounted() {
+            this.hoy = this.fecha.getDate()+'-'+(this.getMes(this.fecha.getMonth()+1))+'-'+this.fecha.getFullYear(); //fecha hoy
             this.cargar_movimientos();
-            this.cargar_opcion();
-            this.saldo_cajas();
-            this.cargar_cajas();
+            this.get_saldo();
+           
         }
     }
   </script>
