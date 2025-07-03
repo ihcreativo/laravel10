@@ -5,7 +5,7 @@
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
            <div class="fs-6 text-end">
             <span class="fs-6 py-2">
-                SALDO ACTUAL:
+                SALDO ACTUAL   :
             </span>
             <span class="fw-bold px-2">
                 $ {{ parseFloat(sumaIn-sumaOut).toLocaleString('es')}}

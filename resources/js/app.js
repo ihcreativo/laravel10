@@ -55,15 +55,22 @@ import dashboard from './components/dashboard-home.vue';
 import movimientos from './components/movimientos.vue';
 import setting from './components/setting.vue';
 import amchartbarra from './components/amcharts/bar.vue';
+import amchartbarra_vertical from './components/amcharts/bar-vertical.vue';
 import amchartlinea from './components/amcharts/line.vue';
 import amchartpie from './components/amcharts/pie.vue';
+import asistencia from './components/asistencia.vue';
+import asistencia_admin from './components/asistencia_admin.vue';
 
 Vue.component('dashboard', dashboard);
 Vue.component('movimientos', movimientos);
 Vue.component('configuracion', setting);
 Vue.component('amchart-barra', amchartbarra);
+Vue.component('amchart-barra-vertical', amchartbarra_vertical);
 Vue.component('amchart-linea', amchartlinea);
 Vue.component('amchart-torta',amchartpie);
+
+Vue.component('asistencia', asistencia);
+Vue.component('asistencia_admin', asistencia_admin);
 
 
 // window.Vue = require('vue').default;

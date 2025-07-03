@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Setting;
+use App\Models\Cajas;
+use App\Models\Movimiento_opcion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -84,14 +86,38 @@ class UserController extends Controller
         ]);
         $us = new User();
         $idU = $us::latest()->first()->id;
+        //cramos las configuraciones del usuario
         $opc =  new Setting();
-            $opc->movimientos =  'Semana';
-            $opc->paginador = '30';
-            $opc->id_user = $idU;
-            $opc->saldos_banco = 'si';
-            $opc->save();
-        
+        $opc->movimientos =  'Semana';
+        $opc->paginador = '30';
+        $opc->id_user = $idU;
+        $opc->saldos_banco = 'si';
+        $opc->save();
+        // creamos la cajas de ejemplo
+        $this->addCajas($idU,'Billetera');
+        $this->addCajas($idU,'Banco');
+        $this->addCajas($idU,'Nequi');
+        // fin de cajas
+        // creamos opciones de ejemplo
+        $this->addOpcion($idU,'Salario','in');
+        $this->addOpcion($idU,'Ingreso Ocasional','in');
+        $this->addOpcion($idU,'Mercado','out');
+        $this->addOpcion($idU,'Servicio público','out');
+        $this->addOpcion($idU,'Comida por fuera','out');
         return redirect()->route('login'); 
+    }
+    public function addOpcion($id, $opc, $tipo){
+        $op = new Movimiento_opcion();
+        $op->opcion =  $opc;
+        $op->tipo =  $tipo;
+        $op->id_user =  $id;
+        $op->save();
+    }
+    public function addCajas($id, $cj){
+        $caja = new Cajas();
+        $caja->caja = $cj;
+        $caja->id_user = $id;
+        $caja->save(); 
     }
 
 

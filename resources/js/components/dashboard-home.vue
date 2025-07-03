@@ -1,137 +1,141 @@
 <template>
     <div :class="status">
-        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
-            <div :class="showMenu == '1'? 'px-0 py-0':'d-none' ">
-                <div class="widget widget-card-five px-2">
-                    <div class="widget-content">
-                        <div class="account-box">
-                            <div class="info-box">
-                                <div class="icon">
-                                    <span>
-                                        <img :src="path+'/img/money-bag.png'" alt="money-bag">
-                                    </span>
+        <div class="">
+            <div :class="showMenu == '1'? 'px-0 py-0':'d-none'">
+                <div class="col-xl-12 col-lg-12 col-md-8 col-sm-12 layout-spacing">
+                    <div class="widget widget-card-five px-2">
+                        <div class="widget-content">
+                            <div class="account-box">
+                                <div class="info-box">
+                                    <div class="icon">
+                                        <span>
+                                            <img :src="path+'/img/money-bag.png'" alt="money-bag">
+                                        </span>
+                                    </div>
+                                    <div class="balance-info">
+                                        <h6>SALDO</h6>
+                                        <p> $ {{parseFloat(sumaIn-sumaOut).toLocaleString('es') }}</p>
+                                    </div>
                                 </div>
-                                <div class="balance-info">
-                                    <h6>SALDO</h6>
-                                    <p> $ {{parseFloat(sumaIn-sumaOut).toLocaleString('es') }}</p>
-                                </div>
-                            </div>
-
-                            <div class="card-bottom-section">
-                                <div class="pe-0">
-                                    <span class="badge badge-light-success px-3" @click="activar_movimiento(3,'in')">
-                                        <img class="py-2" :src="path+'/img/plus.png'" ><br>REGISTRAR INGRESO
-                                    </span>
-                                </div>
-                                <div class="ps-3">
-                                    <span class="badge badge-light-success text-danger px-3" @click="activar_movimiento(3,'out')">        
-                                        <img  class="py-2" :src="path+'/img/minus.png'"><br> REGISTRAR SALIDA
-                                    </span>
+    
+                                <div class="card-bottom-section">
+                                    <div class="pe-0">
+                                        <span class="badge badge-light-success px-3" @click="activar_movimiento(3,'in')">
+                                            <img class="py-2" :src="path+'/img/plus.png'" ><br>REGISTRAR INGRESO
+                                        </span>
+                                    </div>
+                                    <div class="ps-3">
+                                        <span class="badge badge-light-success text-danger px-3" @click="activar_movimiento(3,'out')">        
+                                            <img  class="py-2" :src="path+'/img/minus.png'"><br> REGISTRAR SALIDA
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="mt-2 text-center">
-                    <span class="text-dark fw-bold">
-                        Movimientos
-                    </span>
-                </div>
-                <div class="d-flex justify-content-center pt-0">
-                    <span class="m-0 p-0" v-for="(m,i) in MoviView" :key="i">
-                        <span :class="moviOpcion === m.id?'btn btn-dark rounded-0 fs-6 py-1':'btn rounded-0 fs-6 py-1'" @click="moviOpcion = m.id">
-                            <i :class="moviOpcion === m.id?'fa-solid fa-check':''"></i> {{ m.opcion }}
-                        </span>
-                    </span>
-                    <div class="float-end ms-3">
-                        <span :class="grafico === true? 'btn btn-dark py-1 px-2 mx-1':'btn py-1 mx-1 px-2'" @click="MovimientosDashboard(true)" title="Ver gráfico">
-                            <i class="fa-solid fa-chart-simple  py-0 pt-0"></i>
-                        </span>
-                        <span :class="grafico === false? 'btn btn-dark py-1 px-2':'btn py-1 px-2'" @click="MovimientosDashboard(false)" title="Ver detalles">
-                            <i class="fa-solid fa-table"></i>
+                <div :class="movimientosAll.length > 0? 'mt-2 text-center':'d-none'">
+                    <div class="mt-2 text-center">
+                        <span class="text-dark fw-bold">
+                            Movimientos
                         </span>
                     </div>
-                </div>    
-                <div :class="moviOpcion === 'Dia'? 'card mb-3 py-3':'d-none'">
-                    <div class="card-body text-center">
-                        <h6 class="mb-0 ih-title">MOVIMIENTOS DEL DIA</h6>
+                    <div class="d-flex justify-content-center pt-0">
+                        <span class="m-0 p-0" v-for="(m,i) in MoviView" :key="i">
+                            <span :class="moviOpcion === m.id?'btn btn-dark rounded-0 fs-6 py-1':'btn rounded-0 fs-6 py-1'" @click="moviOpcion = m.id">
+                                <i :class="moviOpcion === m.id?'fa-solid fa-check':''"></i> {{ m.opcion }}
+                            </span>
+                        </span>
+                        <div class="float-end ms-3">
+                            <span :class="grafico === true? 'btn btn-dark py-1 px-2 mx-1':'btn py-1 mx-1 px-2'" @click="MovimientosDashboard(true)" title="Ver gráfico">
+                                <i class="fa-solid fa-chart-simple  py-0 pt-0"></i>
+                            </span>
+                            <span :class="grafico === false? 'btn btn-dark py-1 px-2':'btn py-1 px-2'" @click="MovimientosDashboard(false)" title="Ver detalles">
+                                <i class="fa-solid fa-table"></i>
+                            </span>
+                        </div>
+                    </div> 
+                    
+                    <div :class="moviOpcion === 'Dia'? 'card mb-3 py-3':'d-none'">
+                        <div class="card-body text-center">
+                            <h6 class="mb-0 ih-title">MOVIMIENTOS DEL DIA</h6>
+                        </div>
+                        <div :class="grafico === true?'':'d-none'">
+                            <amchart-barra
+                                etiquetas
+                                multicolor
+                                paleta="#fa9f9e,#b4c1c7,#ffded9,#b0f0a4,#aef0ff,#ffa9de,#a1b4ff,#ffcf9e,#febdd1,#72cccc"
+                                altura="250"
+                                redondeado
+                                cursor
+                                tooltip
+                                grilla="0.0"
+                                sin_valores
+                                lanzarevento="evt_getDia"
+                                ref="mi_dia"
+                                campo_categoria="tipo"
+                                campo_valor="movimiento">
+                            </amchart-barra>
+                        </div>
+                        <div :class="grafico === false?'':'d-none'">
+                            <div class="table-responsive">
+                                    <table class="table">
+                                        <tbody>
+                                            <tr style="cursor: pointer;" v-for="(d, di) in miDia" :key="di">
+                                                <td class="fs-6">
+                                                    {{d.fecha}}
+                                                    <br>{{ d.detalle }}
+                                                </td>
+                                                <td class="text-center fs-5">
+                                                    <span :class="d.tipo == 'INGRESOS'? 'text-success':'text-danger'">$ {{ parseFloat(d.movimiento).toLocaleString('es')}}</span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                        </div>
+                    
                     </div>
-                    <div :class="grafico === true?'':'d-none'">
-                        <amchart-barra
-                            etiquetas
-                            multicolor
-                            paleta="#fa9f9e,#b4c1c7,#ffded9,#b0f0a4,#aef0ff,#ffa9de,#a1b4ff,#ffcf9e,#febdd1,#72cccc"
-                            altura="250"
-                            redondeado
-                            cursor
-                            tooltip
-                            grilla="0.0"
-                            sin_valores
-                            lanzarevento="evt_getDia"
-                            ref="mi_dia"
-                            campo_categoria="tipo"
-                            campo_valor="movimiento">
-                        </amchart-barra>
+                    <div :class="moviOpcion === 'Semana'? 'card mb-3 py-3':'d-none'">
+                        <div class="card-body text-center">
+                            <h6 class="mb-0 ih-title"> MOVIMIENTO DE LA SEMANA</h6>
+                        </div>
+                        <div :class="grafico === true?'':'d-none'">
+                            <amchart-barra
+                                etiquetas
+                                multicolor
+                                paleta="#fa9f9e,#b4c1c7,#ffded9,#b0f0a4,#aef0ff,#ffa9de,#a1b4ff,#ffcf9e,#febdd1,#72cccc"
+                                altura="250"
+                                redondeado
+                                cursor
+                                tooltip
+                                grilla="0.0"
+                                sin_valores
+                                lanzarevento="evt_getSemana"
+                                ref="mi_semana"
+                                campo_categoria="tipo"
+                                campo_valor="movimiento"></amchart-barra>
+                        </div>
+                        <div :class="grafico === false?'':'d-none'">
+                            <div class="table-responsive">
+                                    <table class="table">
+                                        <tbody>
+                                            <tr style="cursor: pointer;" v-for="(s, si) in miSemana" :key="si">
+                                                <td class="fs-6">
+                                                    {{s.fecha}}
+                                                    <br>{{ s.detalle }}
+                                                </td>
+                                                <td class="text-center fs-5">
+                                                    <span :class="s.tipo == 'INGRESOS'? 'text-success':'text-danger'">$ {{ parseFloat(s.movimiento).toLocaleString('es')}}</span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                        </div>
                     </div>
-                    <div :class="grafico === false?'':'d-none'">
-                        <div class="table-responsive">
-                                <table class="table">
-                                    <tbody>
-                                        <tr style="cursor: pointer;" v-for="(d, di) in miDia" :key="di">
-                                            <td class="fs-6">
-                                                {{d.fecha}}
-                                                <br>{{ d.detalle }}
-                                            </td>
-                                            <td class="text-center fs-5">
-                                                <span :class="d.tipo == 'INGRESOS'? 'text-success':'text-danger'">$ {{ parseFloat(d.movimiento).toLocaleString('es')}}</span>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                    </div>
-                 
-                </div>
-                <div :class="moviOpcion === 'Semana'? 'card mb-3 py-3':'d-none'">
-                    <div class="card-body text-center">
-                        <h6 class="mb-0 ih-title"> MOVIMIENTO DE LA SEMANA</h6>
-                    </div>
-                    <div :class="grafico === true?'':'d-none'">
-                        <amchart-barra
-                            etiquetas
-                            multicolor
-                            paleta="#fa9f9e,#b4c1c7,#ffded9,#b0f0a4,#aef0ff,#ffa9de,#a1b4ff,#ffcf9e,#febdd1,#72cccc"
-                            altura="250"
-                            redondeado
-                            cursor
-                            tooltip
-                            grilla="0.0"
-                            sin_valores
-                            lanzarevento="evt_getSemana"
-                            ref="mi_semana"
-                            campo_categoria="tipo"
-                            campo_valor="movimiento"></amchart-barra>
-                    </div>
-                    <div :class="grafico === false?'':'d-none'">
-                        <div class="table-responsive">
-                                <table class="table">
-                                    <tbody>
-                                        <tr style="cursor: pointer;" v-for="(s, si) in miSemana" :key="si">
-                                            <td class="fs-6">
-                                                {{s.fecha}}
-                                                <br>{{ s.detalle }}
-                                            </td>
-                                            <td class="text-center fs-5">
-                                                <span :class="s.tipo == 'INGRESOS'? 'text-success':'text-danger'">$ {{ parseFloat(s.movimiento).toLocaleString('es')}}</span>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                    </div>
-                </div>
-                <!-- modulo x -->
+                    <!-- modulo x -->
                 <div :class="saldos_banco == 'si'?'widget-four mt-3 mb-5':'d-none'">
                     <div class="widget-heading text-center">
                         <h5 class="">SALDOS POR BANCO</h5>
@@ -147,7 +151,7 @@
                                         <h6>{{ x.Caja }}</h6>
                                         <p class="browser-count fs- text-dark">$ {{parseFloat(x.Saldo).toLocaleString('es')}}</p>
                                     </div>
-                                    <div class="w-browser-stats">
+                                    <div class="w-browser-stats ">
                                         <div class="progress">
                                             <div :class="(t % 2 != 0)?'progress-bar bg-gradient-primary':'progress-bar bg-gradient-warning'" e="progressbar" :style="x.dato" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
@@ -158,7 +162,69 @@
 
                     </div>
                 </div>
+
+                <div :class="ranking.length > 0? 'd-flex justify-content-center pt-0 mt-3':'d-none'">
+                    <span class="bg-dark py-2 px-3 raton rounded-start text-uppercase" @click="load_filtro_mes()">
+                        {{ mes_select.valor }}
+                    
+                    </span>
+                    <span class="btn-light-dark py-2 px-3 rounded-end raton" @click="load_filtro_mes()">{{ anio_select }}</span>
+                </div>
+                <div :class="ranking.length > 0? 'card mt-0 px-3 pt-0 mt-0':'d-none'">
+                    <amchart-torta
+                            cursor
+                            paleta="#FF7518,#77DEFF,#94F23C,#de8fbd,#05eed7,#5063D9,#e9600c,#ef57ba,#98928f,#4a6126,#a7c7d9,#f24191,#244902,#2d2f2f"
+                            totalizar="26|Salidas"
+                            radio="80"
+                            altura="320"
+                            ref="ranking_salidas_torta"
+                            preloading
+                            compact
+                            campo_categoria="opcion"
+                            campo_valor="total">
+                        </amchart-torta>
+                    <!-- </div>
+                    <div class="card px-3 pt-3 mt-3"> -->
+                    <!-- progrees -->
+                    <!-- SALIDAS : {{ sumaMes }} -->
+                    <div class="py-0 my-0" v-for="(m, mi) in datosMes" :key="mi">
+                        <div class="d-flex justify-content-between py-0 my-0">
+                            <div class="text-dark text-uppercase py-0 my-0">{{ m.opcion }}</div>
+                            <div class="text-dark fw-bold">$ {{ parseFloat(m.total).toLocaleString('es') }}</div>
+                        </div>                  
+                        <div class="progress rounded py-1 px-1 bg-none" style="height: 44px; background-color:none;">
+                            <div :class="m.clase" 
+                            role="progressbar" :style="m.datos" aria-valuenow="30" aria-valuemin="2" aria-valuemax="100">
+                                <span :class="(parseInt(100/(parseFloat(sumaMes)) * m.total)) > 6? 'text-dark fw-bold':'d-none'">
+                                    {{parseInt(100/(parseFloat(sumaMes)) * m.total)}}%
+                                </span> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 
+                <!-- fin progress -->
+
+                
+                <!-- <div :class="ranking.length > 0? 'card mt-0':'d-none'">
+                    <amchart-barra-vertical
+                        etiquetas
+                        multicolor
+                        grilla="0"
+                        paleta="#fa9f9e,#b4c1c7,#ffded9,#b0f0a4,#aef0ff,#ffa9de,#a1b4ff,#ffcf9e,#febdd1,#72cccc"
+                        altura="250"
+                        redondear
+                        cursor
+                        tooltip
+                        sin_valores
+                        lanzarevento="evt_get_in"
+                        ref="ranking_salidas"
+                        campo_categoria="opcion"
+                        campo_valor="total">
+                    </amchart-barra-vertical>
+                </div>  -->
+                
+            </div>
                 
             </div>
             <div :class="showMenu == '2'? 'px-0 py-0 mb-5':'d-none' ">
@@ -548,9 +614,43 @@
                     </div>
                 </div>
             </div>
-        </div> 
-    </div>
+        </div>
+        <div class="modal fade zoom-in-up" id="Modal_filtro" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+                <div class="modal-content fondo p-0">
+                    <div class="text-danger text-end m-1  pe-3 pt-3" data-bs-dismiss="modal" aria-label="Close">
+                        <span class="badge badge-danger m-0">
+                            <i class="fa-solid fa-x"></i>
+                        </span>
+                    </div>
+                    <div class="modal-body p-0 px-3 pb-3">
+                        <div class="p-2"> 
+                            <div class="input-group">
+                                <span for="" class="input-group-text">Mes</span>
+                                <select v-model="mes_select.clave" name="" class="form-control" id="">
+                                    <option :value="m.clave" v-for="(m, i) in filtro_mes" :key="i">
+                                        {{ m.valor }}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="input-group mt-3">
+                                <span class="input-group-text">Año</span>
+                                <select name="" class="form-control fs-6" id="">
+                                    <option :value="anio_select" v-for="(a, ii) in filtro_anio" :key="ii">
+                                        {{ a }}
+                                    </option>
+                                </select>
+                                <span class="btn btn-primary" @click="salidas_ranking()" data-bs-dismiss="modal" aria-label="Close">
+                                    <i class="fa-solid fa-filter fs-3 pt-1 px-2"></i>
+                                </span>
 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>        
+    </div>
 
   </template>
 
@@ -606,10 +706,35 @@
                 saldos_banco : '',
                 paginador: 0,
                 movimiento_:'',
-                pagina:1
+                pagina:1,
+                filtro_anio:[],
+                filtro_mes:[],
+                mes_select:{},
+                anio_select:'',
+                ranking:[],
+                sumaMes:0,
+                datosMes:[]
+                
             }
         },
         methods:{
+            stilo: function(arg){
+                let x = '';
+                switch(arg){
+                    case 0: x = 'progress-bar rounded linea_0'; break;
+                    case 1: x = 'progress-bar rounded linea_1'; break;
+                    case 2: x = 'progress-bar rounded linea_2'; break;
+                    case 3: x = 'progress-bar rounded linea_3'; break;
+                    case 4: x = 'progress-bar rounded linea_4'; break;
+                    case 5: x = 'progress-bar rounded linea_5'; break;
+                    case 6: x = 'progress-bar rounded linea_6'; break;
+                    case 7: x = 'progress-bar rounded linea_7'; break;
+                    case 8: x = 'progress-bar rounded linea_8'; break;
+
+                }
+                console.log(x);
+                return x;
+            },
             removerSetting: function(){
                 localStorage.removeItem("kkebo_paginador");
                 localStorage.removeItem("kkebo_saldos_banco");
@@ -852,11 +977,13 @@
                 pam.append('n_registro', this.paginador);
                 axios.post(this.path+'/movimientos-vue',pam).then(res => {
                     this.movimientosAll = res.data;
-                    console.log(this.movimientosAll)
+                    this.movimientosAll = this.movimientosAll.filter(elm => {
+                       return elm.detalle != 'Traslado automatico' && elm.detalle != 'Perdida_controlada';
+                    });
                     console.log('isaias herqzo')
-                    console.log(res.data);
+                    console.log(this.movimientosAll);
                     console.log('ramos')
-                    this.movimientoMatrix = res.data;
+                    this.movimientoMatrix = this.movimientosAll;
                     this.pagina =page;
                     this.movimientosAll.map(elm =>{
                         let tmp = elm.fecha.substr(5,2)
@@ -885,6 +1012,7 @@
                     });
                     
                     this.MovimientosDashboard(true);
+                    this.salidas_ranking();
                     // fin grafico semana --------------------------------
 
                     this.status = this.state.LOADED;
@@ -899,7 +1027,9 @@
                 console.log(this.movimientosAll);
                 //grafico mi dia
                 //this.status = this.state.LOADING;
+                //let Movi = this.movimientosAll.filter(elm => elm.detalle != 'Perdida_controlada');
                 let Movi = this.movimientosAll;
+
                 console.log(Movi)
                 this.$refs['mi_dia'].setDatos(this.Agrupar(Movi.filter(elm => elm.date == this.hoy),'tipo','movimiento'));
                 this.miDia = Movi.filter(elm => elm.date === this.hoy);
@@ -940,11 +1070,107 @@
                 if(arg < 10)fec = '0'+arg;
                 return fec;
             },
+            getMes_string: function(x){
+                let mes = x;
+                switch(x){
+                    case '1': mes = 'Enero'; break; case '5': mes = 'Mayo'; break; case '9': mes = 'Septiembre'; break;
+                    case '2': mes = 'Febrero'; break; case '6': mes = 'Junio'; break; case '10': mes = 'Octubre'; break;
+                    case '3': mes = 'Marzo'; break; case '7': mes = 'Julio'; break; case '11': mes = 'Noviembre'; break;
+                    case '4': mes = 'Abril'; break; case '8': mes = 'Agosto'; break; case '12': mes = 'Diciembre'; break;  
+                }
+                return mes;
+            },
+
             getDia: function(arg){
                 let dia = arg;
                 if(arg < 10)dia = '0'+arg;
                 return dia;
             },
+
+            data_filtro: function(){
+                this.status = this.state.LOADING;
+                axios.post(this.path+'/data_filtro-vue').then(res => {
+                    let datos = res.data;
+                    console.log('filtro')
+                    console.log(res.data);
+                    console.log('filtro fin')
+                    let x = '';
+                    let meses=[];
+                    
+                    res.data.forEach(elm => {
+                        x = elm.dato.split(',');
+                        if(!meses.includes(x[0])){
+                            meses.push(x[0]);
+                        }
+                        if(!this.filtro_anio.includes(x[1])){
+                            this.filtro_anio.push(x[1]);
+                        }    
+                    })
+                    meses.forEach(opc =>{
+                        this.filtro_mes.push({'clave':opc, 'valor':this.getMes_string(opc)});
+                    })
+                    console.log(meses);
+                    console.log(this.filtro_mes);
+                    console.log(this.filtro_anio);
+                    console.log('------filtro')
+                    
+                
+                    this.status = this.state.LOADED;
+                }).catch(err => {
+                    alert(err)
+                    this.status = this.state.FAILED;
+                    console.log(err)
+                }) 
+            },
+            salidas_ranking: function(){
+                var lastDay = new Date(this.anio_select, this.mes_select.clave, 0);
+                let fecha_i = this.anio_select+'-'+this.mes_select.clave+'-1';
+                let fecha_f = this.anio_select+'-'+this.mes_select.clave+'-'+lastDay.getDate();
+                console.log(fecha_i+'------'+fecha_f);
+                this.status = this.state.LOADING;
+                let fields =  new FormData();
+                fields.append('fecha_i',fecha_i,);
+                fields.append('fecha_f',fecha_f);
+                axios.post(this.path+'/salidas_ranking-vue',fields).then(res => {
+                    let datos = res.data.filter(elm =>{
+                        return elm.opcion != 'Traslado automatico' && elm.opcion != 'Perdida_controlada';
+                    });
+                    console.log('Ranking----------------')
+                    this.ranking = res.data;
+                    console.log(this.ranking);
+                    // console.log('fin Ranking----------------')
+                    datos = datos.sort((a,b)=> a.total - b.total)
+                    datos = datos.filter(elm => elm.opcion != 'Traslado');
+                    this.sumaMes = 0;
+                    this.datosMes = [];
+                    datos.forEach(elm => {
+                        this.sumaMes = (parseFloat(this.sumaMes) + parseFloat(elm.total));
+                    })
+                    
+                    let x = 0;
+                    let indice = 0;
+                    datos = datos.sort((a,b) => b.total - a.total)
+                    datos.map(elm =>{
+                        x = parseInt((100 / this.sumaMes) * elm.total);
+                        elm.datos = 'width:'+x + '%';
+                        elm.clase = 'progress-bar rounded linea_'+indice;
+                        elm.valor = x;
+                        indice++;
+                        return elm;
+                    })
+                    datos = datos.filter(elm => elm.valor >= 1);
+                    this.datosMes = datos.sort((a,b) => b.total - a.total);
+                    //this.$refs['ranking_salidas'].setDatos(Object.values(datos));
+                    this.$refs['ranking_salidas_torta'].setDatos(Object.values(datos));
+                    this.mes_select.valor = this.getMes_string(this.mes_select.clave + ''); 
+                    this.status = this.state.LOADED;
+                }).catch(err => {
+                    this.status = this.state.FAILED;
+                    console.log(err)
+                }) 
+            },
+            
+
             registro_movimiento : function(){
                 if(this.status != this.state.LOADING){
                     this.status = this.state.LOADING;
@@ -993,6 +1219,7 @@
                 }
 
             },
+
             view_movimiento: function(arg){
                 this.movimientoX = arg;
                 console.log(this.movimientoX);
@@ -1079,6 +1306,9 @@
                 this.hoy = arg;
                 $('#Modal_miDia').modal('show');  
             },
+            load_filtro_mes: function(){
+                $('#Modal_filtro').modal('show');
+            },
             listen: function(){
                 this.$eventBus.$on('evt_getDia', arg => {
                     console.log('dia-------------------')
@@ -1100,9 +1330,15 @@
             }
         },
         mounted() {
+
             this.hoy = this.getDia(this.fecha.getDate())+'-'+(this.getMes(this.fecha.getMonth()+1))+'-'+this.fecha.getFullYear(); //fecha hoy
+            this.mes_select ={'clave': this.fecha.getMonth()+1, 'valor':this.getMes_string((this.fecha.getMonth()+1)+'')};
+            this.anio_select = this.fecha.getFullYear();
+            
             this.listen();
             this.getSetting();
+            this.data_filtro();
+            this.salidas_ranking();
             this.get_saldo();
             this.cargar_opcion();
             this.saldo_cajas();
@@ -1125,4 +1361,22 @@
     .ih_6{background: rgb(60,244,245);background: linear-gradient(90deg, rgba(60,244,245,1) 0%, rgba(60,172,249,1) 100%);}
     .ih_0{background: rgb(37,74,6);background: linear-gradient(0deg, rgba(37,74,6,1) 2%, rgba(8,199,163,1) 100%);}
     .ih-title {color:#000; font-weight: bold}
+    .raton{cursor: pointer;}
+    
+    .linea_0{background:linear-gradient(to right,#FF7518,#FFB90C)}
+    .linea_1{background:linear-gradient(to right,#77DEFF,#869AF1)}
+    .linea_2{background:linear-gradient(to right,#94F23C,#CAFF8B)}
+    .linea_3{background:linear-gradient(to right,#de8fbd,#f56cb3)}
+    .linea_4{background:linear-gradient(to right,#05eed7,#f56cb3)}
+    .linea_5{background:linear-gradient(to right,#5063D9,#9eace6)}
+    .linea_6{background:linear-gradient(to right,#e9600c,#ee945b)}
+    .linea_7{background:linear-gradient(to right,#ef57ba,#eba2ca)}
+    .linea_8{background:linear-gradient(to right,#98928f,#edd1bf)}
+    .linea_9{background:linear-gradient(to right,#4a6126,#91e787)}
+    .linea_10{background:linear-gradient(to right,#a7c7d9,#b5bbbc)}
+    .linea_11{background:linear-gradient(to right,#f24191,#f2a0d0)}
+    .linea_12{background:linear-gradient(to right,#244902,#cdf2ed)}
+    .linea_13{background:linear-gradient(to right,#2d2f2f,#54504e)}
+
+    
   </style>

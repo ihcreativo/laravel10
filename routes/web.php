@@ -5,6 +5,8 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\MovimientoController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\AnaliticoController;
+use App\Http\Controllers\AsistenciaController;
 
 Route::get('/404', [LoginController::class, 'denegado'])->middleware('auth')->name('denegado');
 Route::get('/', [LoginController::class, 'index'])->name('login.index');
@@ -48,6 +50,27 @@ Route::post('/nivelar_caja-vue', [MovimientoController::class, 'nivelar_caja']);
 Route::post('/getSetting-vue', [SettingController::class, 'getSetting']);
 Route::post('/update_setting-vue', [SettingController::class, 'updateSetting']);
 Route::post('/trasladar_dinero-vue', [MovimientoController::class, 'trasladarDinero']);
+
+// Analico 
+Route::post('/salidas_ranking-vue', [AnaliticoController::class, 'salidas_ranking']);
+Route::post('/data_filtro-vue', [AnaliticoController::class, 'data_filtro']);
+
+
+
+
+
+Route::get('/asistencia/{tken}', [AsistenciaController::class, 'asistencia']);
+Route::post('/query_token', [AsistenciaController::class, 'query_token']);
+Route::post('/marcar_asistencia', [AsistenciaController::class, 'marcar_asistencia']);
+Route::post('/verificar_asistencia', [AsistenciaController::class, 'verificar_asistencia']);
+// Administracion
+Route::get('/asistencia_admin', [AsistenciaController::class, 'asistencia_admin']);
+Route::post('/get_dias_sesiones', [AsistenciaController::class, 'get_dias_sesiones']);
+Route::post('/add_dias_sesiones', [AsistenciaController::class, 'add_dias_sesiones']);
+Route::post('/get_asistencia', [AsistenciaController::class, 'get_asistencia']);
+Route::post('/archivar_session_dia', [AsistenciaController::class, 'archivar_session_dia']);
+
+
 
 
 
